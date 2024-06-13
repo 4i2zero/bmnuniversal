@@ -31,7 +31,7 @@ def caller_tunes_delivery():
 def youtube_content_id():
     return render_template('main/youtube_content_id.html')
 
-@main.route("/our-services/artist/tools")
+@main.route("/our-services/artist-tools")
 def artist_tools():
     return render_template('main/artist_tools.html')
 
@@ -51,7 +51,7 @@ def blog_post():
 def faq():
     return render_template('main/faq.html')
 
-@main.route("/about-us")
+@main.route("/about")
 def about_us():
     return render_template('main/about_us.html')
 
