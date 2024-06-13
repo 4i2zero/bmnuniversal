@@ -6,3 +6,4 @@ Flask-Bcrypt
 Flask-WTF
 WTForms
 python-dotenv
+validate_email
