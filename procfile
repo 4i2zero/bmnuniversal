@@ -1,1 +1,1 @@
-web: gunicorn --worker-tmp-dir /dev/shm --config config.py app:app
+web: flask db migrate; gunicorn app:app
