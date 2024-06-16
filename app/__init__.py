@@ -2,6 +2,8 @@ from flask import Flask
 from app.extensions import db, migrate, login_manager, bcrypt
 from app.config import Config
 from app.models import User
+from werkzeug.utils import secure_filename
+
 
 def create_app(config_class=Config):
     app = Flask(__name__)

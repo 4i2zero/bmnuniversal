@@ -833,11 +833,11 @@ body {
     opacity: .9; }
 
 .sidebar[data-background-color="dark"] .nav .nav-item > a:hover, .sidebar[data-background-color="dark"] .nav .nav-item > a:focus, .sidebar[data-background-color="dark"] .nav .nav-item.submenu, .sidebar[data-background-color="dark2"] .nav .nav-item > a:hover, .sidebar[data-background-color="dark2"] .nav .nav-item > a:focus, .sidebar[data-background-color="dark2"] .nav .nav-item.submenu {
-  background: rgba(0, 0, 0, 0.16); }
+  background: rgba(0, 0, 0, 0); }
 .sidebar[data-background-color="dark"] .nav .nav-item.submenu > a, .sidebar[data-background-color="dark2"] .nav .nav-item.submenu > a {
   background: transparent !important; }
 .sidebar[data-background-color="dark"] .nav .nav-item.active > a, .sidebar[data-background-color="dark2"] .nav .nav-item.active > a {
-  background: rgba(0, 0, 0, 0.16); }
+  background: rgba(0, 0, 0, 0); }
 
 .logo-header {
   float: left;

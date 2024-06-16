@@ -1,40 +1,53 @@
-{% extends "base.html" %}
+{% extends "base_home.html" %}
+{% block title %} Login{% endblock title %}
 {% block content %}
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        Login
-                    </div>
-                    <div class="card-body">
-                        <form method="POST" action="">
-                            {{ form.hidden_tag() }}
-                            <div class="mb-3">
-                                {{ form.email.label(class="form-label") }}
-                                {{ form.email(class="form-control form-control-lg") }}
-                                {% for error in form.email.errors %}
+    <!-- ##### Breadcumb Area Start ##### -->
+    <section class="breadcumb-area bg-img bg-overlay mb-4" style="background-image: url(/static/img/bg-img/breadcumb3.jpg);">
+        <div class="bradcumbContent">
+            <p>Don't have account ? <a href="/register"> Sign Up.</a></p>
+            <h2>Login</h2>
+        </div>
+    </section>
+    <!-- ##### Breadcumb Area End ##### -->
+
+    <!-- ##### Login Area Start ##### -->
+    <section class="login-area p-3 mb-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-8">
+                    <div class="login-content">
+                        <h3>Welcome Back</h3>
+                        {% include '/include/home/alert.html' %}
+                        <!-- Login Form -->
+                        <div class="login-form">
+                            <form action="" method="POST">
+                                {{ form.hidden_tag() }}
+                                <div class="form-group">
+                                    {{ form.email.label() }}
+                                    {{ form.email(class="form-control") }}
+                                    {% for error in form.email.errors %}
                                     <span class="text-danger">{{ error }}</span>
-                                {% endfor %}
-                            </div>
-                            <div class="mb-3">
-                                {{ form.password.label(class="form-label") }}
-                                {{ form.password(class="form-control form-control-lg") }}
-                                {% for error in form.password.errors %}
-                                    <span class="text-danger">{{ error }}</span>
-                                {% endfor %}
-                            </div>
-                            <div class="mb-3 form-check">
-                                {{ form.remember(class="form-check-input") }}
-                                {{ form.remember.label(class="form-check-label") }}
-                            </div>
-                            <div class="d-grid gap-2">
-                                {{ form.submit(class="btn btn-primary btn-lg") }}
-                            </div>
-                        </form>
+                                    {% endfor %}
+                                    <small id="emailHelp" class="form-text text-muted"><i class="fa fa-lock mr-2"></i>We'll never share your email with anyone else.</small>
+                                </div>
+                                <div class="form-group">
+                                    {{ form.password.label() }}
+                                    {{ form.password(class="form-control" ) }}
+                                    {% for error in form.password.errors %}
+                                        <span class="text-danger">{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                                <div class="form-group">
+                                    {{ form.remember(class="form-check-input") }}
+                                    {{ form.remember.label(class="form-check-label") }}
+                                </div>
+                                    {{ form.submit(class="btn oneMusic-btn mt-30") }}
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+    <!-- ##### Login Area End ##### -->
 {% endblock %}

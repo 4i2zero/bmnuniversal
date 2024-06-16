@@ -1,4 +1,4 @@
-from flask import render_template, url_for, flash, redirect, request
+from flask import render_template, url_for, flash, redirect, request, session
 from flask_login import login_user, current_user, logout_user, login_required
 from . import auth
 from app.extensions import db, bcrypt
@@ -28,6 +28,10 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
+            session['name'] = current_user.name
+            session['email'] = current_user.email
+            session['phone'] = current_user.phone
+            session['revenue'] = current_user.revenue
             next_page = request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('cms.cmsdash'))
         else:
