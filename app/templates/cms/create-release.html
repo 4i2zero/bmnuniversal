@@ -1,0 +1,325 @@
+{% extends "base_cms.html" %}
+{% block title %} Create Release{% endblock title %}
+{% block content %}
+<div class="row ">
+    <div class="col-12 ">
+        <div class="card">
+          <div class="card-header">
+            <ul class="nav nav-pills nav-secondary nav-pills-no-bd justify-content-center" id="pills-tab-without-border" role="tablist">
+              <li class="nav-item submenu" role="presentation">
+                <a class="nav-link active" id="pills-releaseinfo-tab-nobd" data-bs-toggle="pill" href="#pills-releaseinfo-nobd" role="tab" aria-controls="pills-releaseinfo-nobd" aria-selected="true">Release Info</a>
+              </li>
+              <li class="nav-item submenu" role="presentation">
+                <a class="nav-link" id="pills-songinfo-tab-nobd" data-bs-toggle="pill" href="#pills-songinfo-nobd" role="tab" aria-controls="pills-songinfo-nobd" aria-selected="false" tabindex="-1" >Song Info</a>
+              </li>
+              <li class="nav-item submenu" role="presentation">
+                <a class="nav-link" id="pills-platform-tab-nobd" data-bs-toggle="pill" href="#pills-platform-nobd" role="tab" aria-controls="pills-platform-nobd" aria-selected="false" tabindex="-2" >Platforms</a>
+              </li>
+            </ul>
+          </div>
+          <div class="card-body">
+            <div class="tab-content mt-2 mb-3" id="pills-without-border-tabContent">
+              <div class="tab-pane fade active show" id="pills-releaseinfo-nobd" role="tabpanel" aria-labelledby="pills-releaseinfo-nobd">
+                <div class="container">
+                  <div class="row justify-content-center">
+                    <div class="col-md-4">
+                      <form id="uploadartwork">
+                        <div class="mb-1">
+                          <div class="bg-white" style="border: 3px solid black; width: 300px; height: 300px" onclick="openImageUpload()">
+                              <div class="d-flex justify-content-center align-items-center" style="width: 100%; height: 100%; background-color: #f5f5f5">
+                                    <img src="/static/add-pic.svg" id="upimg" alt="My SVG Image"  style="border: 3px solid black; width: 300px; height: 300px" />
+                                  <input type="file" id="albumartwork" name="albumartwork"placeholder="ARTWORK" style="display: none"/>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="mt-2 mb-3">
+                        <a class="artwork-guidlines">ARTWORK GUIDELINES</a>
+                    </div>
+                      </form>
+                    </div>
+                    <div class="col-md-8">
+                      <form id="myForm" method="POST">
+                        <div class="mb-3">
+                          <label for="releaseTitle" class="form-label">Release Title</label>
+                          <input type="text" class="form-control" id="releaseTitle" name="releaseTitle">
+                        </div>
+                        <div class="mb-3">
+                          <label for="releaseType" class="form-label">Release Type</label>
+                          <select class="form-select" id="releaseType" name="releaseType">
+                            <option selected>Choose...</option>
+                            <option value="single">Single</option>
+                            <option value="album">Album</option>
+                            <option value="ep">EP</option>
+                          </select>
+                        </div>
+                     
+                        <div class="mb-3">
+                          <label for="primaryArtist1" class="form-label">Primary Artist</label>
+                          <div class="input-group">
+                            <input type="text" class="form-control" id="primaryArtist1" name="primaryArtist1">
+                            <button class="btn btn-success" type="button" id="addPrimaryArtist2Button" onclick="addPrimaryArtist2()">
+                              <i class="icon-plus"></i>
+                            </button>
+                          </div>
+                        </div>
+                        <div class="mb-3" id="primaryArtist2Container" style="display: none;">
+                          <label for="primaryArtist2" class="form-label">Primary Artist 2</label>
+                          <div class="input-group">
+                            <input type="text" class="form-control" id="primaryArtist2" name="primaryArtist2" value="null">
+                            <button class="btn btn-success" type="button" id="addPrimaryArtist3Button" onclick="addPrimaryArtist3()">
+                              <i class="icon-plus"></i>
+                            </button>
+                          </div>
+                        </div>
+                        <div class="mb-3" id="primaryArtist3Container" style="display: none;">
+                          <label for="primaryArtist3" class="form-label">Primary Artist 3</label>
+                          <div class="input-group">
+                            <input type="text" class="form-control" id="primaryArtist3" name="primaryArtist3" value="null">
+                          </div>
+                        </div>
+                        <div class="mb-3">
+                          <label for="featuring1" class="form-label">Featuring Artist</label>
+                          <div class="input-group">
+                            <input type="text" class="form-control" id="featuringArtist1" name="featuringArtist1" value="null">
+                            <button class="btn btn-success" type="button" id="addFeaturingArtist2Button" onclick="addFeaturingArtist2()">
+                              <i class="icon-plus"></i>
+                            </button>
+                          </div>
+                        </div>
+                        <div class="mb-3" id="featuringArtist2Container" style="display: none;">
+                          <label for="featuringArtist2" class="form-label">Featuring Artist 2</label>
+                          <div class="input-group">
+                            <input type="text" class="form-control" id="featuringArtist2" name="featuringArtist2" value="null">
+                            <button class="btn btn-success" type="button" id="addFeaturingArtist3Button" onclick="addFeaturingArtist3()">
+                              <i class="icon-plus"></i>
+                            </button>
+                          </div>
+                        </div>
+                        <div class="mb-3" id="featuringArtist3Container" style="display: none;">
+                          <label for="featuringArtist3" class="form-label">Featuring Artist 3</label>
+                          <div class="input-group">
+                            <input type="text" class="form-control" id="featuringArtist3" name="featuringArtist3" value="null">
+                          </div>
+                        </div>
+                        <div class="mb-3">
+                          <label for="genre" class="form-label">Genre</label>
+                          <select class="form-select" id="genre" name="genre">
+                            <option selected>Choose...</option>
+                            <option value="pop">Pop</option>
+                            <option value="rock">Rock</option>
+                            <option value="hiphop">Hip Hop</option>
+                            <option value="rnb">RnB</option>
+                            <option value="country">Country</option>
+                            <option value="jazz">Jazz</option>
+                            <option value="blues">Blues</option>
+                            <option value="reggae">Reggae</option>
+                            <option value="gospel">Gospel</option>
+                            <option value="soul">Soul</option>
+                            <option value="dance">Dance</option>
+                            <option value="electronic">Electronic</option>
+                            <option value="classical">Classical</option>
+                            <option value="folk">Folk</option>
+                            <option value="latin">Latin</option>
+                            <option value="metal">Metal</option>
+                            <option value="punk">Punk</option>
+                            <option value="indie">Indie</option>
+                            <option value="alternative">Alternative</option>
+                            <option value="reggaeton">Reggaeton</option>
+                            <option value="kpop">K-Pop</option>
+                            <option value="jpop">J-Pop</option>
+                            <option value="cpop">C-Pop</option>
+                            <option value="other">Other</option>
+                          </select>
+                        </div>
+                        <div class="mb-3">
+                          <label for="subGenre" class="form-label">Sub Genre</label>
+                          <input type="text" class="form-control" id="subGenre" name="subGenre">
+                        </div>
+                        <div class="mb-3">
+                          <label for="labelName" class="form-label">Label Name</label>
+                          <input type="text" class="form-control" id="labelName" name="labelName">
+                        </div>
+                        <div class="mb-3">
+                          <label for="releaseDate" class="form-label">Release Date</label>
+                          <input type="date" class="form-control" id="releaseDate" name="releaseDate">
+                        </div>
+                        <div class="mb-3">
+                          <label for="pLine" class="form-label">P Line</label>
+                          <input type="text" class="form-control" id="pLine" name="pLine">
+                        </div>
+                        <div class="mb-3">
+                          <label for="cLine" class="form-label">C Line</label>
+                          <input type="text" class="form-control" id="cLine" name="cLine">
+                        </div>
+                        <div class="mb-3">
+                          <label for="upcEan" class="form-label">UPC/EAN</label>
+                          <input type="text" class="form-control" id="upcEan" name="upcEan">
+                        </div>
+                        <div class="mb-3">
+                          <button type="submit" id="createreleaseinfobtn" class="btn btn-primary">Next</button>
+                        </div>
+                  </div>
+                </div>
+
+
+              </div>
+              <div class="tab-pane fade" id="pills-songinfo-nobd" role="tabpanel" aria-labelledby="pills-songinfo-nobd">
+                <p>
+                  Even the all-powerful Pointing has no control about
+                  the blind texts it is an almost unorthographic life
+                  One day however a small line of blind text by the name
+                  of Lorem Ipsum decided to leave for the far World of
+                  Grammar.
+                </p>
+                <p>
+                  The Big Oxmox advised her not to do so, because there
+                  were thousands of bad Commas, wild Question Marks and
+                  devious Semikoli, but the Little Blind Text didn’t
+                  listen. She packed her seven versalia, put her initial
+                  into the belt and made herself on the way.
+                </p>
+              </div>
+              <div class="tab-pane fade" id="pills-platform-nobd" role="tabpanel" aria-labelledby="pills-platform-nobd">
+                <p>
+                  Pityful a rethoric question ran over her cheek, then
+                  she continued her way. On her way she met a copy. The
+                  copy warned the Little Blind Text, that where it came
+                  from it would have been rewritten a thousand times and
+                  everything that was left from its origin would be the
+                  word "and" and the Little Blind Text should turn
+                  around and return to its own, safe country.
+                </p>
+
+                <p>
+                  But nothing the copy said could convince her and so it
+                  didn’t take long until a few insidious Copy Writers
+                  ambushed her, made her drunk with Longe and Parole and
+                  dragged her into their agency, where they abused her
+                  for their
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+{% endblock content %}
+{% block js %}
+<script>
+  let filenamealbumartwork; // Global variable to store the filename
+
+  function openImageUpload() {
+    const albumArtworkInput = document.getElementById("albumartwork");
+    albumArtworkInput.click();
+    albumArtworkInput.onchange = handleImageUpload; // Automatically trigger handleImageUpload when a file is selected
+  }
+  function handleImageUpload(event) {
+    const file = event.target.files[0];
+    if (!file) {
+      alert("Please select a file.");
+      return;
+    }
+  
+    const formData = new FormData();
+    formData.append("file", file);
+  
+  
+    fetch("/cms/api/upload", {
+      method: "POST",
+      body: formData,
+    })
+    .then(response => {
+      if (!response.ok) {
+        // Convert response to JSON to attempt to extract server-provided error details
+        return response.json().then(err => Promise.reject(err));
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+      filenamealbumartwork = data.filename; // Set the global variable with the filename
+      const newfile = "/cms/uploads/" + filenamealbumartwork;
+      document.getElementById("upimg").src = newfile// Update the image src
+    })
+    .catch(error => {
+      console.error('There was a problem with your fetch operation:', error);
+      // Optionally, display a more user-friendly error message here
+    });
+  }
+  function addPrimaryArtist2() {
+    const primaryArtist2Container = document.getElementById("primaryArtist2Container");
+    const addPrimaryArtist2Button = document.getElementById("addPrimaryArtist2Button");
+
+    
+    primaryArtist2Container.style.display = "block";
+    addPrimaryArtist2Button.style.display = "none";
+  }
+  function addPrimaryArtist3() {
+    const primaryArtist3Container = document.getElementById("primaryArtist3Container");
+    const addPrimaryArtist3Button = document.getElementById("addPrimaryArtist3Button");
+
+    
+    primaryArtist3Container.style.display = "block";
+    addPrimaryArtist3Button.style.display = "none";
+  }
+  function addFeaturingArtist2() {
+    const featuringArtist2Container = document.getElementById("featuringArtist2Container");
+    const addFeaturingArtist2Button = document.getElementById("addFeaturingArtist2Button");
+
+    
+    featuringArtist2Container.style.display = "block";
+    addFeaturingArtist2Button.style.display = "none";
+  }
+  function addFeaturingArtist3() {
+    const featuringArtist3Container = document.getElementById("featuringArtist3Container");
+    const addFeaturingArtist3Button = document.getElementById("addFeaturingArtist3Button");
+
+    
+    featuringArtist3Container.style.display = "block";
+    addFeaturingArtist3Button.style.display = "none";
+  }
+  document.getElementById('myForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission which results in a GET request
+  
+    const formData = new FormData(this); // 'this' refers to the form element
+    fetch('/cms/api/createReleaseInfo', {
+      method: 'POST',
+      body: JSON.stringify({
+        album_artwork: filenamealbumartwork,
+        release_title: document.getElementById('releaseTitle').value,
+        release_type: document.getElementById('releaseType').value,
+        primary_artist1: document.getElementById('primaryArtist1').value,
+        primary_artist2: document.getElementById('primaryArtist2').value,
+        primary_artist3: document.getElementById('primaryArtist3').value,
+        featuring1: document.getElementById('featuringArtist1').value,
+        featuring2: document.getElementById('featuringArtist2').value,
+        featuring3: document.getElementById('featuringArtist3').value,
+        genre: document.getElementById('genre').value,
+        sub_genre: document.getElementById('subGenre').value,
+        lable_name: document.getElementById('labelName').value,
+        release_date: document.getElementById('releaseDate').value,
+        p_line: document.getElementById('pLine').value,
+        c_line: document.getElementById('cLine').value,
+        upc_ean: document.getElementById('upcEan').value
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+      // Handle success, e.g., showing a success message or redirecting
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      // Handle error, e.g., showing an error message
+    });
+  });
+</script>
+{% endblock js %}

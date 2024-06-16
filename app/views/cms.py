@@ -1,5 +1,5 @@
 import os
-from flask import render_template, redirect, url_for, flash, request, jsonify, session
+from flask import render_template, redirect, url_for, flash, request, jsonify, session, send_from_directory
 from flask_login import login_required, current_user
 from . import cms
 from app.extensions import db
@@ -11,6 +11,11 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'mp3', 'wav', 'flac'}
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@cms.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory('J:/bmn_universal_music/app/uploads',filename)
+
 
 @cms.route("/")
 @login_required
@@ -45,9 +50,9 @@ def catalog_details(releseid):
 @cms.route("/api/upload", methods=['POST'])
 def upload_file():
     if request.method == 'POST':
-        # check if the post request has the file part
+        # check if the post request has the file part 
         if 'file' not in request.files:
-            flash('No file part')
+            flash('No file part', 'danger')
             return jsonify({'message': 'No file part'}), 400
         file = request.files['file']
         if file.filename == '':
@@ -56,7 +61,7 @@ def upload_file():
         file = request.files['file']
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join('/app/uploads', filename))
+            file.save(os.path.join('J:/bmn_universal_music/app/uploads', filename))
             return jsonify({'message': 'File uploaded successfully!', 'filename': filename}), 200
         return jsonify({'message': 'Invalid file type!'}), 400
 
