@@ -171,6 +171,13 @@ def submission_data(releseid):
         number_of_tracks = len(tracks)
         return jsonify({'album_artwork': album_artwork, 'release_title': release_title, 'genre': genre, 'sub_genre': sub_genre, 'lable_name': lable_name, 'primary_artist1': primary_artist1, 'number_of_tracks': number_of_tracks}), 200
 
+
+@cms.route("/catalog", methods=['GET'])
+def get_catalog():
+    return render_template('cms/catalog.html', active='catalog')
+
+
+
 '''
 GET Logos:
     URL : /api/getLogos
