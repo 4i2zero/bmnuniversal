@@ -1674,4 +1674,132 @@ img {
 
 /* ====== The End ====== */
 
+/* background bg section start */
+.background_bg{
+    width: 100%;
+    float: left;
+    height: auto;
+}
+/* background bg section end */
+
+/* watchs section start */
+
+.watchs_section{
+    width: 100%;
+    float: left;
+    height: auto;
+    background-size: 100%;
+    padding-bottom: 90px;
+}
+
+.watchs_taital {
+    width: 100%;
+    float: left;
+    font-size: 40px;
+    color: #000000;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+h1.watchs_taital::after {
+    content: '';
+    position: absolute;
+    width: 400px;
+    background-color: #000000;
+    height: 2px;
+    left: initial;
+    right: 0px;
+    bottom: 40px;
+}
+
+.watchs_section_2{
+    width: 100%;
+    float: left;
+}
+.watchs_section_3{
+    width: 100%;
+    float: left;
+    padding-top: 70px;
+}
+
+.watchs_text{
+    width: 100%;
+    float: left;
+    font-size: 16px;
+    color: #000000;
+   margin: 0px;
+}
+
+.uni_text {
+    width: 100%;
+    float: left;
+    font-size: 24px;
+    color: #000000;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding-top: 70px;
+}
+.rate_text {
+    width: 100%;
+    float: left;
+    font-size: 24px;
+    color: #000000;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding-top: 15px;
+}
+.image_1{
+    width: 90%;
+    float: left;
+}
+.image_2{
+    width: 100%;
+    float: right;
+    text-align: right;
+}
+
+.read_bt1 {
+    width: 170px;
+    float: left;
+    margin-top: 15px;
+}
+.read_bt1 a {
+    width: 100%;
+    float: left;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #b60213;
+    text-align: center;
+    padding: 10px 0px;
+    border-radius: 30px;
+    font-weight: bold;
+}
+.read_bt1 a:hover{
+    color: #ffffff;
+    background-color: #000000;
+}
+
+.seemore_bt {
+    width: 200px;
+    margin: 0 auto;
+    text-align: center;
+}
+.seemore_bt a {
+    width: 100%;
+    float: left;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #000000;
+    text-align: center;
+    padding: 10px 0px;
+    border-radius: 30px;
+    font-weight: bold;
+}
+.seemore_bt a:hover{
+    color: #ffffff;
+    background-color: #b60213;
+}
+
+/* watchs section end */
+
+
 /*# sourceMappingURL=style.css.map */
