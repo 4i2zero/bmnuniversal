@@ -16,28 +16,31 @@ class User(db.Model, UserMixin):
     phone = db.Column(db.String(20), nullable=True)
     revenue = db.Column(db.String(20), default='0')
     is_admin = db.Column(db.Boolean, default=False)
-    
+
     def __repr__(self):
         return f"User('{self.email}', '{self.name}', '{self.is_admin}', '{self.phone}', '{self.revenue}')"
-    
+
+
 class Artist(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(250), unique=False, nullable=False)
     artist_name = db.Column(db.String(200), nullable=False)
     spotify_id = db.Column(db.String(250), nullable=True)
     apple_id = db.Column(db.String(250), nullable=True)
-    
+
     def __repr__(self):
         return f"Artist('{self.name}', '{self.email}', '{self.spotify_id}', '{self.apple_id}')"
+
+
 class Releaseinfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(250), unique=False, nullable=False)
     album_artwork = db.Column(db.String(250), nullable=False)
     release_title = db.Column(db.String(250), nullable=False)
     release_type = db.Column(db.String(250), nullable=False)
-    primary_artist1 =db.Column(db.String(250), nullable=False)
+    primary_artist1 = db.Column(db.String(250), nullable=False)
     primary_artist2 = db.Column(db.String(250), nullable=True)
-    primary_artist3 =db.Column(db.String(250), nullable=True)
+    primary_artist3 = db.Column(db.String(250), nullable=True)
     featuring1 = db.Column(db.String(250), nullable=True)
     featuring2 = db.Column(db.String(250), nullable=True)
     featuring3 = db.Column(db.String(250), nullable=True)
@@ -52,7 +55,8 @@ class Releaseinfo(db.Model):
 
     def __repr__(self):
         return f"Releaseinfo('{self.id}' ,'{self.email}', '{self.album_artwork}', '{self.release_title}', '{self.release_type}', '{self.primary_artist1}', '{self.primary_artist2}', '{self.primary_artist3}', '{self.featuring1}', '{self.featuring2}', '{self.featuring3}', '{self.genre}', '{self.sub_genre}', '{self.lable_name}', '{self.release_date}', '{self.p_line}', '{self.c_line}', '{self.upc_ean}', '{self.created_on}')"
-    
+
+
 class Songinfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(250), unique=False, nullable=False)
