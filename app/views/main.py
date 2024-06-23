@@ -7,62 +7,43 @@ from app.models import User
 def index():
     return render_template('main/index.html')
 
-@main.route("/our-services")
-def our_services():
-    return render_template('main/our_services.html')
 
-@main.route("/our-services/digital-stores")
-def digital_stores():
-    return render_template('main/digital_stores.html')
+@main.route("/AshiBawana", methods=['GET'])
+def AshiBawana():
+    return redirect("https://www.instagram.com/ashibawana.official")
 
-@main.route("/our-services/music-distribution")
-def music_distribution():
-    return render_template('main/music_distribution.html')
+@main.route("/4i2zero", methods=['GET'])
+def jerry():
+    return redirect("https://www.instagram.com/4i2zero")
 
-@main.route("/our-services/video-distribution")
-def video_distribution():
-    return render_template('main/video_distribution.html')
+@main.route("/AB01-spotify", methods=['GET'])
+def ab_spotify():
+    return redirect("https://open.spotify.com/track/2bQ2EexyavY52HwounFaWJ")
 
-@main.route("/our-services/caller-tunes-delivery")
-def caller_tunes_delivery():
-    return render_template('main/caller_tunes_delivery.html')
+@main.route("/AB01-wynk", methods=['GET'])
+def ab_wynk():
+    return redirect("https://wynk.in/u/sQUAOpNTa")
 
-@main.route("/our-services/youtube-content-id")
-def youtube_content_id():
-    return render_template('main/youtube_content_id.html')
+@main.route("/AB01-jiosaavan", methods=['GET'])
+def ab_jiosaavan():
+    return redirect("https://www.jiosaavn.com/song/chori-haryanvi/AlktACdnblo")
 
-@main.route("/our-services/artist-tools")
-def artist_tools():
-    return render_template('main/artist_tools.html')
+@main.route("/AB01-hungama", methods=['GET'])
+def ab_hungama():
+    return redirect("https://www.hungama.com/song/chori-haryanvi/102494206/") 
 
-@main.route("/our-services/music-promotion")
-def music_promotion():
-    return render_template('main/music_promotion.html')
+@main.route("/AB01-primemusic", methods=['GET'])
+def ab_primemusic():
+    return redirect("https://music.amazon.in/albums/B0C4K1GRYS")
 
-@main.route("/blog")
-def blog():
-    return render_template('main/blog.html')
+@main.route("/AB01-soundcloud", methods=['GET'])
+def ab_soundcloud():
+    return redirect("https://on.soundcloud.com/GP8sSaheVVPTsKcE6")
 
-@main.route("/blog/post")
-def blog_post():
-    return render_template('main/blog_post.html')
+@main.route("/AB01-reel", methods=['GET'])
+def ab_reel():
+    return redirect("https://www.instagram.com/reels/audio/251509907463238/")
 
-@main.route("/faq")
-def faq():
-    return render_template('main/faq.html')
-
-@main.route("/about")
-def about_us():
-    return render_template('main/about_us.html')
-
-@main.route("/contact-us")
-def contact_us():
-    return render_template('main/contact_us.html')
-
-@main.route("/privacy-policy")
-def privacy_policy():
-    return render_template('main/privacy_policy.html')
-
-@main.route("/distribution-agreement")
-def distribution_agreement():
-    return render_template('main/distribution_agreement.html')
+@main.route("/AB01-gaana", methods=['GET'])
+def ab_gaana():
+    return redirect("https://gaana.com/album/chori-haryanvi")
