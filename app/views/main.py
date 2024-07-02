@@ -7,43 +7,38 @@ from app.models import User
 def index():
     return render_template('main/index.html')
 
+@main.route("/music-distribution")
+def music_distribution():
+    return render_template('main/music-distribution.html')
 
-@main.route("/AshiBawana", methods=['GET'])
-def AshiBawana():
-    return redirect("https://www.instagram.com/ashibawana.official")
+@main.route("/video-distribution")
+def video_distribution():
+    return render_template('main/video-distribution.html')
 
-@main.route("/4i2zero", methods=['GET'])
-def jerry():
-    return redirect("https://www.instagram.com/4i2zero")
+@main.route("/youtube-content-id")
+def youtube_content_id():
+    return render_template('main/youtube-content-id.html')
 
-@main.route("/AB01-spotify", methods=['GET'])
-def ab_spotify():
-    return redirect("https://open.spotify.com/track/2bQ2EexyavY52HwounFaWJ")
+@main.route("/callertune-distribution")
+def callertune_distribution():
+    return render_template('main/callertune-distribution.html')
 
-@main.route("/AB01-wynk", methods=['GET'])
-def ab_wynk():
-    return redirect("https://wynk.in/u/sQUAOpNTa")
+@main.route("/music-marketing")
+def music_marketing():
+    return render_template('main/music-marketing.html')
 
-@main.route("/AB01-jiosaavan", methods=['GET'])
-def ab_jiosaavan():
-    return redirect("https://www.jiosaavn.com/song/chori-haryanvi/AlktACdnblo")
+@main.route("/artist-toolkit")
+def artist_toolkit():
+    return render_template('main/artist-toolkit.html')
 
-@main.route("/AB01-hungama", methods=['GET'])
-def ab_hungama():
-    return redirect("https://www.hungama.com/song/chori-haryanvi/102494206/") 
+@main.route("/pricing")
+def pricing():
+    return render_template('main/pricing.html')
 
-@main.route("/AB01-primemusic", methods=['GET'])
-def ab_primemusic():
-    return redirect("https://music.amazon.in/albums/B0C4K1GRYS")
+@main.route("/about")
+def about():
+    return render_template('main/about.html')
 
-@main.route("/AB01-soundcloud", methods=['GET'])
-def ab_soundcloud():
-    return redirect("https://on.soundcloud.com/GP8sSaheVVPTsKcE6")
-
-@main.route("/AB01-reel", methods=['GET'])
-def ab_reel():
-    return redirect("https://www.instagram.com/reels/audio/251509907463238/")
-
-@main.route("/AB01-gaana", methods=['GET'])
-def ab_gaana():
-    return redirect("https://gaana.com/album/chori-haryanvi")
+@main.route("/faq")
+def faq():
+    return render_template('main/faq.html')

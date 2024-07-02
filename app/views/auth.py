@@ -5,6 +5,8 @@ from app.extensions import db, bcrypt
 from app.models import User
 from app.forms import RegistrationForm, LoginForm
 
+@auth.route('/signup', methods=['GET', 'POST'])
+@auth.route('/signup.html', methods=['GET', 'POST'])
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
@@ -17,7 +19,7 @@ def register():
         db.session.commit()
         flash('Your account has been created! You are now able to log in', 'success')
         return redirect(url_for('auth.login'))
-    return render_template('auth/register.html', title='Register', form=form)
+    return render_template('main/register.html', title='Register', form=form)
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
@@ -36,7 +38,7 @@ def login():
             return redirect(next_page) if next_page else redirect(url_for('cms.cmsdash'))
         else:
             flash('Login unsuccessful. Please check email and password', 'danger')
-    return render_template('auth/login.html', title='Login', form=form)
+    return render_template('main/login.html', title='Login', form=form)
 
 @auth.route('/logout')
 def logout():
