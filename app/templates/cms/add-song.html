@@ -1,0 +1,359 @@
+{% extends "base_cms.html" %} {% block title %}- ADD TRACKS{% endblock title %}
+{% block css %}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dashboardcode/bsmultiselect@1.1.18/dist/css/BsMultiSelect.bs4.min.css"/>
+<style>
+.badge {
+  color: #000000;
+  border-radius: 0px;
+ 
+  line-height: 1;
+  
+  vertical-align: middle;
+  font-weight: 400;
+  font-size: 11px;
+  border: 0px solid #ffffff;
+  height: fit-content !important;
+  text-align: center;
+  white-space: nowrap;
+}
+
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bs-stepper/dist/css/bs-stepper.min.css">
+  {% endblock css %}
+{% block content %}
+<div class="row ">
+  <div class="col-md-12 ">
+    <div class="card ">
+      <div class="card-body">
+        <div id="stepper1" class="bs-stepper linear overflow-x-scroll" style="width:auto;">
+          <div class="bs-stepper-header" role="tablist">
+            <div class="step">
+              <button type="button" class="step-trigger" aria-selected="false">
+                <span class="bs-stepper-circle bg-success">
+                  <span class="fas fa-pen-nib" aria-hidden="true"></span>
+                </span>
+                <span class="bs-stepper-label">Release Info</span>
+              </button>
+            </div>
+            <div class="bs-stepper-line bg-success"></div>
+            <div class="step active">
+              <button type="button" class="step-trigger" aria-selected="true" >
+                <span class="bs-stepper-circle">
+                  <span class="fab fa-itunes-note" aria-hidden="true"></span>
+                </span>
+                <span class="bs-stepper-label">Song Info</span>
+              </button>
+            </div>
+            <div class="bs-stepper-line"></div>
+            <div class="step">
+              <button type="button" class="step-trigger" aria-selected="false" disabled>
+                <span class="bs-stepper-circle">
+                  <span class="fab fa-app-store" aria-hidden="true"></span>
+                </span>
+                <span class="bs-stepper-label">Platforms</span>
+              </button>
+            </div>
+            <div class="bs-stepper-line"></div>
+            <div class="step">
+              <button type="button" class="step-trigger" aria-selected="flase" disabled>
+                <span class="bs-stepper-circle">
+                  <span class="fas fa-volume-up" aria-hidden="true"></span>
+                </span>
+                <span class="bs-stepper-label">submission</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+
+  </div>
+  <div class="col-12 ">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title "> <i class="fas fa-layer-group text-dark mx-2"></i>  ADD TRACKS</h5>
+        </div>
+        <div class="card-body">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-12">
+                <div class="content-wrapper">
+                  <h4 class="section-heading">Enter Album/Release Details </h4>
+                  <div class="row ">
+                    <div class="col-12">
+                      <div class="d-flex align-items-center">
+                        <div class="form-group form-group-default">
+                          <button class="btn btn-success w-100" type="button" data-bs-toggle="modal" data-bs-target="#addRowModal"><i class="fa fa-plus"></i>  Add Track</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <table id="add-row" class="display table table-striped table-hover dataTable" role="grid"
+                        aria-describedby="add-row_info">
+                        <tbody>
+                          {% if songs %}
+                          {% for song in songs  %}
+                          <tr role="row" class="odd">
+                            <td>
+                              <div class="avatar avatar-sm">
+                                <img src="/cms/uploads/{{album.artwork}}" class="avatar-img rounded-circle">
+                              </div>
+                            </td>
+                            <td>{{song.title}}</td>
+                            
+                          </tr>
+                          {% endfor %}
+                          {% else %}
+                          <tr role="row" class="even">
+                            <td>No Tracks Added</td>
+                          </tr>
+                          {% endif %}
+                          
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="col-md-4 ms-auto me-auto">
+                      <div class="d-flex align-items-center justify-content-center">
+                          <div class="form-group form-group-default">
+                            <a class="btn btn-dark text-center"href="/cms/add-store">ADD PLATFORMS</a>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="addRowModal" tabindex="-1" aria-hidden="true" style="display: none">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h5 class="modal-title">
+          <span class="fw-mediumbold"> New Track </span>
+        </h5>
+      </div>
+      <input id="track" hidden type="file" name="track" class="form-select" aria-label="TRACK"/>
+      <div class="modal-body">
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group form-group-default">
+                <button class="btn btn-success w-100" type="button" onclick="openAudioUpload()">ADD AUDIO FILE</button>
+              </div>
+            </div>
+            <form method="POST" target="/cms/add-track" >
+              <div class="col-12">
+                <div class="form-group form-group-default">
+                  <label>ALBUM</label>
+                  <input class="form-control" placeholder="{{album.title}}" value="{{album.title}}" />
+                  <input name="albumId" type="hidden" class="form-control" value="{{album.id}}" readonly />
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group form-group-default">
+                  <label>TRACK VERSION</label>
+                  <select name="version" class="form-select" aria-label="TRACK VERSION">
+                    <option value="Orignal">ORIGNAL</option>
+                    <option value="Karaoke">KARAOKE</option>
+                    <option value="Medley">MEDLEY</option>
+                    <option value="Cover">COVER</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group form-group-default">
+                  <label>INSTRUMENTAL</label>
+                  <select name="instrumental" class="form-select" aria-label="TRACK VERSION">
+                    <option value="NO">NO</option>
+                    <option value="YES">YES</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group form-group-default">
+                  <label>TRACK TITLE</label>
+                  <input id="title" name="title" type="text" class="form-control" required/>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group form-group-default">
+                  <label>TRACK SUB-TITLE</label>
+                  <input name="subtitle" type="text" class="form-control" required/>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group form-group-default">
+                  <label>PRIMARY ARTIST</label>
+                  <select name="primaryArtists" id="edit-states1-id" class="form-control"  multiple="multiple" required >
+                    {% for artist in artists  %}
+                      <option value="{{ artist.name }}">{{ artist.name }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group form-group-default">
+                  <label>FEATURING ARTISTS</label>
+                  <select name="featuringArtists" id="edit-states1-id2" class="form-control"  multiple="multiple" >
+                    {% for artist in artists  %}
+                      <option value="{{ artist.name }}">{{ artist.name }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group form-group-default">
+                  <label>AUTHOR</label>
+                  <input name="author" type="text" class="form-control" required/>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group form-group-default">
+                  <label>COMPOSER</label>
+                  <input name="composer" type="text" class="form-control" required />
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group form-group-default">
+                  <label>PRODUCER</label>
+                  <input name="producer" type="text" class="form-control" required />
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group form-group-default">
+                  <label>P LINE</label>
+                  <input name="pLine" type="text" class="form-control" required/>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group form-group-default">
+                  <label>PRODUCTION YEAR</label>
+                  <input name="productionYear" type="month" class="form-control" required />
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group form-group-default">
+                  <label>PUBLISHER</label>
+                  <input name="publisher" type="text" class="form-control" required />
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group form-group-default">
+                  <label>ISRC</label>
+                  <input name="isrc" type="text" class="form-control" value="NIL"/>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group form-group-default">
+                  <label>GENRE</label>
+                  <input name="genre" type="text" class="form-control" value="{{album.genre}}" required/>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group form-group-default">
+                  <label>SUB GENRE</label>
+                  <input name="subGenre" type="text" class="form-control" value="{{album.sub_genre}}" required/>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group form-group-default">
+                  <label>EXPLICIT CONTENT</label>
+                  <select name="explicit" class="form-select" aria-label="EXPLICIT CONTENT" required>
+                    <option value="False">NO</option>
+                    <option value="True">YES</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group form-group-default">
+                  <label>TITLE LANGUAGE</label>
+                  <input name="titleLanguage" type="text" class="form-control"required />
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group form-group-default">
+                  <label>LYRICS LANGUAGE</label>
+                  <input name="lyricsLanguage" type="text" class="form-control"required />
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group form-group-default">
+                  <label>LYRICS</label>
+                  <textarea name="lyrics" class="form-control" rows="5"></textarea>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group form-group-default">
+                  <label>CALLER TUNE</label>
+                  <input name="callertune"  class="form-control" placeholder="MM:SS" />
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group form-group-default">
+                  <button class="btn btn-dark w-100" type="submit">ADD TRACK</button>
+                </div>
+              </div>
+            </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/@dashboardcode/bsmultiselect@1.1.18/dist/js/BsMultiSelect.bs4.min.js "> </script>
+<script>
+  var $multiSelects = $("select[multiple='multiple']");
+  function install(){
+      $multiSelects.bsMultiSelect();
+  }
+  install();  
+</script>
+<script>
+  let filenameTrack; // Global variable to store the filename
+
+  function openAudioUpload() {
+    const albumTrackInput = document.getElementById("track");
+    albumTrackInput.click();
+    albumTrackInput.onchange = handleAudioUpload; // Automatically trigger handleImageUpload when a file is selected
+  }
+  function handleAudioUpload(event) {
+    const file = event.target.files[0];
+    if (!file) {
+      alert("Please select a file.");
+      return;
+    }
+  
+    const formData = new FormData();
+    formData.append("file", file);
+  
+  
+    fetch("/cms/api/upload", {
+      method: "POST",
+      body: formData,
+    })
+    .then(response => {
+      if (!response.ok) {
+        // Convert response to JSON to attempt to extract server-provided error details
+        return response.json().then(err => Promise.reject(err));
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);// Set the global variable with the filename
+    })
+    .catch(error => {
+      console.error('There was a problem with your fetch operation:', error);
+      // Optionally, display a more user-friendly error message here
+    });
+  }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.jss"></script>
+{% endblock js %}

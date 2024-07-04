@@ -1,9 +1,11 @@
-from flask import render_template, url_for, flash, redirect, request
+from flask import render_template, url_for, flash, redirect, request, send_from_directory
 from . import main
 from app.extensions import db, bcrypt
 from app.models import User
 
+
 @main.route("/")
+@main.route("/static/index.html")
 def index():
     return render_template('main/index.html')
 
@@ -42,3 +44,12 @@ def about():
 @main.route("/faq")
 def faq():
     return render_template('main/faq.html')
+
+@main.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory('J:/bmn_universal_music/app/uploads',filename)
+
+@main.app_template_filter('format_datetime')
+def format_datetime(value, format="%d/%m/%y TIME : %H:%M "):
+    """Format a datetime object to a specific format."""
+    return value.strftime(format)

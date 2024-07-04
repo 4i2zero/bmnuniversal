@@ -1,0 +1,138 @@
+{% extends "base_cms.html" %}
+{% block title %} Create Release{% endblock title %}
+{% block css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bs-stepper/dist/css/bs-stepper.min.css">
+{% endblock css %}
+{% block content %}
+<div class="row ">
+  <div class="col-md-12 ">
+    <div class="card ">
+      <div class="card-body">
+        <div id="stepper1" class="bs-stepper linear overflow-x-scroll" style="width:auto;">
+          <div class="bs-stepper-header" role="tablist">
+            <div class="step">
+              <button type="button" class="step-trigger" aria-selected="false">
+                <span class="bs-stepper-circle bg-success">
+                  <span class="fas fa-pen-nib" aria-hidden="true"></span>
+                </span>
+                <span class="bs-stepper-label">Release Info</span>
+              </button>
+            </div>
+            <div class="bs-stepper-line bg-success"></div>
+            <div class="step">
+              <button type="button" class="step-trigger" aria-selected="false" >
+                <span class="bs-stepper-circle bg-success">
+                  <span class="fab fa-itunes-note" aria-hidden="true"></span>
+                </span>
+                <span class="bs-stepper-label">Song Info</span>
+              </button>
+            </div>
+            <div class="bs-stepper-line bg-success"></div>
+            <div class="step">
+              <button type="button" class="step-trigger" aria-selected="false">
+                <span class="bs-stepper-circle bg-success">
+                  <span class="fab fa-app-store" aria-hidden="true"></span>
+                </span>
+                <span class="bs-stepper-label">Platforms</span>
+              </button>
+            </div>
+            <div class="bs-stepper-line bg-success"></div>
+            <div class="step active">
+              <button type="button" class="step-trigger" aria-selected="true">
+                <span class="bs-stepper-circle">
+                  <span class="fas fa-volume-up" aria-hidden="true"></span>
+                </span>
+                <span class="bs-stepper-label">submission</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+
+  </div>
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title "> <i class="fas fa-layer-group text-dark mx-2"></i> SUBMISSION </h5>
+      </div>
+      <div class="card-body">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-12">
+              <div class="content-wrapper">
+                <h3 class="section-heading mb-2">Release Information</h3>
+              </div>
+            </div>
+            <div class="col-12 mt-4">
+              <div class="row justify-content-center"> 
+                <div class="col-md-8">
+                    <div class="row text-start">
+                        <div class="col-md-2">
+                            <p class="text-dark fb-bold text-start"><strong>TITLE</strong></p>
+                        </div>
+                        <div class="col-md-5">
+                            <p class="text-dark text-start text-uppercase">{{ album.title }}</p>
+                        </div>
+                        <div class="col-md-2">
+                            <p class="text-dark text-start"><strong>GENRE</strong></p>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="text-dark text-start text-uppercase">{{ album.genre }}</p>
+                        </div>
+                        <div class="col-md-2">
+                            <p class="text-dark fb-bold text-start"><strong>ARTIST</strong></p>
+                        </div>
+                        <div class="col-md-5">
+                            <p class="text-dark text-start text-uppercase">{{ album.primary_artist1 }}</p>
+                        </div>
+                        <div class="col-md-2">
+                            <p class="text-dark font-weight-bold text-start"><strong>SUBGENRE</strong></p>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="text-dark text-start text-uppercase">{{ album.subgenre }}</p>
+                        </div>
+                        <div class="col-md-2">
+                            <p class="text-dark fb-bold text-start"><strong>LABEL</strong></p>
+                        </div>
+                        <div class="col-md-5">
+                            <p class="text-dark text-start text-uppercase">{{ album.label_name }}</p>
+                        </div>
+                        <div class="col-md-2">
+                            <p class="text-dark font-weight-bold text-start"><strong>#SONGS</strong></p>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="text-dark text-start text-uppercase">{{ songs_number }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <img src="/cms/uploads/{{ album.artwork }}" class="rounded"  height="200px" width="200px" alt="...">
+                      </div>
+                </div>
+             </div>
+            
+            <div class="col-md-4 ms-auto me-auto">
+              <div class="d-flex align-items-center justify-content-center">
+                  <div class="form-group form-group-default">
+                    <a class="btn btn-dark text-center w-100 mt-5"href="/cms/">SAVE</a>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+
+{% endblock content %}
+
+{% block js %}
+  <script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.jss"></script>
+
+{% endblock js %}

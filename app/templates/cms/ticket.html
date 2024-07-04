@@ -1,0 +1,88 @@
+{% extends "base_cms.html" %} {% block title %} Tickets {% endblock title %} {%
+    block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card text-white" style="background-color: rgb(0, 0, 0);">
+                <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p class="text-start"><strong>REASON</strong></p>
+                        <h5 class="text-start">{{ticket.reason}}</h5>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="text-start"><strong>DATE</strong></p>
+                        <h5 class="text-start">{{ticket.created_on|format_datetime}}</h5>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="text-start"><strong>STATUS</strong></p>
+                        <h5 class="text-start">{{ticket.status}}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        {% for message in messages  %}
+        {% if message.author_id == user_id %}
+        <div class="col-md-12">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <p class="text-start text-Uppercase"><strong>{{ name }}</strong></p>
+                        <p class="text-start">{{message.message}}</p>
+                        {% if message.attachment %}
+                            
+                        <img class="thumbnail" width="100px" height="100px" src="/cms/uploads/{{message.attachment}}">
+                        {% endif %}
+                    </div>
+                    <div class="col-md-4">
+                        <p class="text-end"><strong>CREATED AT</strong></p>
+                        <P class="text-end">{{message.created_on|format_datetime}}</P>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        {% else %}
+        <div class="col-md-12">
+            <div class="card bg-success text-dark">
+                <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <p class="text-start text-Uppercase"><strong>ADMIN :</strong></p>
+                        <p class="text-start">{{message.message}}</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="text-end"><strong>CREATED AT</strong></p>
+                        <P class="text-end">{{message.created_on|format_datetime}}</P>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+  
+        <div class="col-md-12">
+            <div class="card bg-black text-white">
+                <div class="card-body">
+                <form action="/cms/ticket/{{ticket.id}}" method="POST">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <textarea name="message" id="message" class="form-control" rows="2"placeholder="Type here...." required></textarea>
+                        </div>
+                        <div class="col-md-2 p-2">
+                            <button type="submit" class="btn btn-lg btn-light text-dark w-100">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+
+    
+    
+
+    
+    {% endblock %}

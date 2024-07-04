@@ -1,0 +1,95 @@
+{% extends "base_cms.html" %}
+{% block title %}
+    Reports
+{% endblock title %}
+{% block content %}
+<div class="row ">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title "> <i class="fas fa-layer-group text-dark mx-2"></i> REPORTS</h5>
+            </div>
+            <div class="card-body">
+                <div class="container">
+                  
+                        <div class="col-md-12">
+                            <div class="content-wrapper">
+                                <h3 class="section-heading mb-2">Request Reports</h3>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-4">
+                            <form action="{{ url_for('cms.report') }}" method="POST">
+                                <div class="form-row">
+                                    <div class="form-group" style="width: 100%;">
+                                        <label for="reportFor">Select Store</label>
+                                        <select class="form-control" id="reportFor" name="reportFor" required>
+                                            <option value="All Stores">All Stores</option>
+                                            <option value="Amazon Music">Amazon Music</option>
+                                            <option value="Apple Music">Apple Music</option>
+                                            <option value="Beatport">Beatport</option>
+                                            <option value="CallerTunes Report">CallerTunes Report</option>
+                                            <option value="Dailymotion">Dailymotion</option>
+                                            <option value="Gaana">Gaana</option>
+                                            <option value="Hungama">Hungama</option>
+                                            <option value="Instagram / Facebook">Instagram / Facebook</option>
+                                            <option value="JIO Saavan">JIO Saavan</option>
+                                            <option value="MX Player">MX Player</option>
+                                            <option value="Shazam">Shazam</option>
+                                            <option value="Spotify">Spotify</option>
+                                            <option value="Tidal">Tidal</option>
+                                            <option value="Wynk">Wynk</option>
+                                            <option value="YouTube Music">YouTube Music</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" style="width: 100%;">
+                                        <label for="startDate">Start Date</label>
+                                        <input type="month" class="form-control" id="startDate" name="startDate" required>
+                                    </div>
+                                    <div class="form-group" style="width: 100%;">
+                                        <label for="endDate">End Date</label>
+                                        <input type="month" class="form-control" id="endDate" name="endDate" required>
+                                    </div>
+                                    <div class="col-md-4 ms-auto me-auto">
+                                        <div class="d-flex align-items-center justify-content-center">
+                                                <button type="submit" class="btn btn-dark text-center mt-3 mb-3 w-100">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-12 overflow-x-scroll" style="width:auto;">
+                            <div class="content-wrapper">
+                                <h3 class="section-heading mb-3 mt-3">Previously Requested</h3>
+                            </div>
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th scope="col">No.</th>
+                                    <th scope="col">Report For</th>
+                                    <th scope="col">Start Date</th>
+                                    <th scope="col">End Date</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% for report in reports  %}
+                                    <tr>
+                                        <td>{{ loop.index }}</td>
+                                        <td>{{ report.report_for }}</td>
+                                        <td>{{ report.start_date }}</td>
+                                        <td>{{ report.end_date }}</td>
+                                        <td>{{ report.status }}</td>
+                                    </tr>
+                                        
+                                    {% endfor %}
+                                
+                                </tbody>
+                            </table>
+              
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

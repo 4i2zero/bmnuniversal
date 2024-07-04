@@ -1,0 +1,112 @@
+{% extends "base_cms.html" %}
+{% block title %}
+    Catalog
+{% endblock title %}
+{% block content %}
+<div class="row ">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title "> <i class="fas fa-layer-group text-dark mx-2"></i> MUSIC CATALOG </h5>
+            </div>
+            <div class="card-body">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-12">
+                            <div class="content-wrapper">
+                                <h3 class="section-heading mb-2">Release Information</h3>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-4">
+                            <div class="row justify-content-center"> 
+                                <div class="col-md-4">
+                                    <div class="text-center">
+                                        <img src="/cms/uploads/{{ album.artwork }}" class="rounded"  height="200px" width="200px" alt="...">
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="row text-start">
+                                        <div class="col-md-2">
+                                            <p class="text-dark fb-bold text-start"><strong>TITLE</strong></p>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <p class="text-dark text-start text-uppercase">{{ album.title }}</p>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <p class="text-dark text-start"><strong>GENRE</strong></p>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <p class="text-dark text-start text-uppercase">{{ album.genre }}</p>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <p class="text-dark fb-bold text-start"><strong>ARTIST</strong></p>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <p class="text-dark text-start text-uppercase">{{ album.primary_artist1 }}</p>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <p class="text-dark font-weight-bold text-start"><strong>SUBGENRE</strong></p>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <p class="text-dark text-start text-uppercase">{{ album.subgenre }}</p>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <p class="text-dark fb-bold text-start"><strong>LABEL</strong></p>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <p class="text-dark text-start text-uppercase">{{ album.label_name }}</p>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <p class="text-dark font-weight-bold text-start"><strong>#SONGS</strong></p>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <p class="text-dark text-start text-uppercase">{{ album.songs|length }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 overflow-x-scroll" style="width:auto;">
+                            <div class="content-wrapper">
+                                <h3 class="section-heading mb-3 mt-3">Tracks</h3>
+                            </div>
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Track</th>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Artist Name</th>
+                                    <th scope="col">Release Date</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% for song in songs  %}
+                                    <tr>
+                                        <td>{{ loop.index }}</td>
+                                        <td>
+                                            <audio controls>
+                                                <source src="/cms/uploads/{{ song.track }}" type="audio/mpeg">
+                                                Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                        <td>{{ song.title }}</td>
+                                        <td>{{ song.primary_artist1 }}</td>
+                                        <td>{{ album.release_date }}</td>
+                                        <td>{{ song.status }}</td>
+                                    </tr>
+                                        
+                                    {% endfor %}
+                                
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

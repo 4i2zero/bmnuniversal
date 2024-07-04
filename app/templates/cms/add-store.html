@@ -1,0 +1,1084 @@
+{% extends "base_cms.html" %}
+{% block title %} Create Release{% endblock title %}
+{% block css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bs-stepper/dist/css/bs-stepper.min.css">
+{% endblock css %}
+{% block content %}
+<div class="row ">
+  <div class="col-md-12 ">
+    <div class="card ">
+      <div class="card-body">
+        <div id="stepper1" class="bs-stepper linear overflow-x-scroll" style="width:auto;">
+          <div class="bs-stepper-header" role="tablist">
+            <div class="step">
+              <button type="button" class="step-trigger" aria-selected="false">
+                <span class="bs-stepper-circle bg-success">
+                  <span class="fas fa-pen-nib" aria-hidden="true"></span>
+                </span>
+                <span class="bs-stepper-label">Release Info</span>
+              </button>
+            </div>
+            <div class="bs-stepper-line bg-success"></div>
+            <div class="step">
+              <button type="button" class="step-trigger" aria-selected="false" >
+                <span class="bs-stepper-circle bg-success">
+                  <span class="fab fa-itunes-note" aria-hidden="true"></span>
+                </span>
+                <span class="bs-stepper-label">Song Info</span>
+              </button>
+            </div>
+            <div class="bs-stepper-line bg-success"></div>
+            <div class="step active">
+              <button type="button" class="step-trigger" aria-selected="true">
+                <span class="bs-stepper-circle">
+                  <span class="fab fa-app-store" aria-hidden="true"></span>
+                </span>
+                <span class="bs-stepper-label">Platforms</span>
+              </button>
+            </div>
+            <div class="bs-stepper-line"></div>
+            <div class="step">
+              <button type="button" class="step-trigger" aria-selected="flase" disabled>
+                <span class="bs-stepper-circle">
+                  <span class="fas fa-volume-up" aria-hidden="true"></span>
+                </span>
+                <span class="bs-stepper-label">submission</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+
+  </div>
+  <div class="col-12 ">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title "> <i class="fas fa-layer-group text-dark mx-2"></i> SELECT PLATFORMS </h5>
+      </div>
+      <div class="card-body">
+        <div class="container overflow-x-scroll" style="width:auto;">
+          <div class="row justify-content-center">
+            <div class="col-12">
+              <div class="content-wrapper">
+                <h3 class="section-heading mb-2">Audio (190+ Platforms)</h3>
+                <p>For delivering content to only certain stores/services, please create a ticket.</p>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row"> 
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/17.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" checked>
+                    <label class="form-check-label" for="inlineCheckbox1">7 Digital</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/59.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2" checked>
+                    <label class="form-check-label" for="inlineCheckbox2">Adaptr</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/100_Air_India.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3" checked>
+                    <label class="form-check-label" for="inlineCheckbox3">Air India </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row"> 
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/101_Air_Vanuatu.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option4" checked>
+                    <label class="form-check-label" for="inlineCheckbox4">Air Vanuatu </label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/102_AirAsia.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="option5" checked>
+                    <label class="form-check-label" for="inlineCheckbox5">AirAsia </label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/103_AirAsiaX.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox6" value="option6" checked>
+                    <label class="form-check-label" for="inlineCheckbox6">AirAsiaX </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row"> 
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/104_Alibaba_Music.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox7" value="option7" checked>
+                    <label class="form-check-label" for="inlineCheckbox7">Alibaba Music</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/3.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox8" value="option8" checked>
+                    <label class="form-check-label" for="inlineCheckbox8">Amazon</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/60.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox9" value="option9" checked>
+                    <label class="form-check-label" for="inlineCheckbox9">AMI</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row"> 
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/18.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox10" value="option10" checked>
+                    <label class="form-check-label" for="inlineCheckbox10">Anghami</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/2.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox11" value="option11" checked>
+                    <label class="form-check-label" for="inlineCheckbox11">Apple Music</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/91.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox12" value="option12" checked>
+                    <label class="form-check-label" for="inlineCheckbox12">Artcore </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row"> 
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/20.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox13" value="option13" checked>
+                    <label class="form-check-label" for="inlineCheckbox13">Audible Magic</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/105_AudioClub.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox14" value="option14" checked>
+                    <label class="form-check-label" for="inlineCheckbox14">AudioClub</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/49.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox15" value="option15" checked>
+                    <label class="form-check-label" for="inlineCheckbox15">Audiomack</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row"> 
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/61.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox16" value="option16" checked>
+                    <label class="form-check-label" for="inlineCheckbox16">AWA</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/19.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox17" value="option17" checked>
+                    <label class="form-check-label" for="inlineCheckbox17">Beatport </label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/24.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox18" value="option18" checked>
+                    <label class="form-check-label" for="inlineCheckbox18">Beatsource </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row"> 
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/106_Beeline_Music.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox19" value="option19" checked>
+                    <label class="form-check-label" for="inlineCheckbox19">Beeline Music</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/25.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox20" value="option20" checked>
+                    <label class="form-check-label" for="inlineCheckbox20">Bmat</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/30.jpg" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox21" value="option21" checked>
+                    <label class="form-check-label" for="inlineCheckbox21">Boomplay</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row"> 
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/107_Bubuka_Audio.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox22" value="option22" checked>
+                    <label class="form-check-label" for="inlineCheckbox22">Bubuka Audio</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/108_Bugs.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox23" value="option23" checked>
+                    <label class="form-check-label" for="inlineCheckbox23">Bugs</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/109_China_Airlines.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox24" value="option24" checked>
+                    <label class="form-check-label" for="inlineCheckbox24">China Airlines </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row"> 
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/58.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox25" value="option25" checked>
+                    <label class="form-check-label" for="inlineCheckbox25">ClicknClear (Licensing)</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/110_COOLVOX.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox26" value="option26" checked>
+                    <label class="form-check-label" for="inlineCheckbox26">COOLVOX</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/92.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox27" value="option27" checked>
+                    <label class="form-check-label" for="inlineCheckbox27">Damroo</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row"> 
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/10.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox28" value="option28" checked>
+                    <label class="form-check-label" for="inlineCheckbox28">Deezer</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/9.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox29" value="option29" checked>
+                    <label class="form-check-label" for="inlineCheckbox29">Facebook,Instagram</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/27.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox30" value="option30" checked>
+                    <label class="form-check-label" for="inlineCheckbox30">Fizy</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row"> 
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/63.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox31" value="option31" checked>
+                    <label class="form-check-label" for="inlineCheckbox31">FLO Music</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/111_FonMix.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox32" value="option32" checked>
+                    <label class="form-check-label" for="inlineCheckbox32">FonMix</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/8.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox33" value="option33" checked>
+                    <label class="form-check-label" for="inlineCheckbox33">Gaana</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row"> 
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/64.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox34" value="option34" checked>
+                    <label class="form-check-label" for="inlineCheckbox34">Genie Music</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/112_GMF_AeroAsia.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox35" value="option35" checked>
+                    <label class="form-check-label" for="inlineCheckbox35">GMF AeroAsia </label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/28.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox36" value="option36" checked>
+                    <label class="form-check-label" for="inlineCheckbox36">Gracenote</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row"> 
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/113_Grandpad.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox37" value="option37" checked>
+                    <label class="form-check-label" for="inlineCheckbox37">Grandpad</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/114_HUAWEI_Music.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox38" value="option38" checked>
+                    <label class="form-check-label" for="inlineCheckbox38">HUAWEI Music</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/7.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox39" value="option39" checked>
+                    <label class="form-check-label" for="inlineCheckbox39">Hungama</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row"> 
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/65.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox40" value="option40" checked>
+                    <label class="form-check-label" for="inlineCheckbox40">iHeartRadio</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/66.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox41" value="option41" checked>
+                    <label class="form-check-label" for="inlineCheckbox41">iMusica</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/29.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox42" value="option42" checked>
+                    <label class="form-check-label" for="inlineCheckbox42">Jaxsta</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row"> 
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/115_Jetstar.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox43" value="option43" checked>
+                    <label class="form-check-label" for="inlineCheckbox43">Jetstar </label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/4.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox44" value="option44" checked>
+                    <label class="form-check-label" for="inlineCheckbox44">JioSaavn</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/67.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox45" value="option45" checked>
+                    <label class="form-check-label" for="inlineCheckbox45">JOOX</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row"> 
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/116_Kanijan.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox46" value="option46" checked>
+                    <label class="form-check-label" for="inlineCheckbox46">Kanijan</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/21.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox47" value="option47" checked>
+                    <label class="form-check-label" for="inlineCheckbox47">KK Box</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/68.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox48" value="option48" checked>
+                    <label class="form-check-label" for="inlineCheckbox48">Kuack Media</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row"> 
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/117_Kuaishou.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox49" value="option49" checked>
+                    <label class="form-check-label" for="inlineCheckbox49">Kuaishou</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/118_Kugou.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox50" value="option50" checked>
+                    <label class="form-check-label" for="inlineCheckbox50">Kugou</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/119_Kuwo.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox51" value="option51" checked>
+                    <label class="form-check-label" for="inlineCheckbox51">Kuwo</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row"> 
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/120_Kwai.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox52" value="option52" checked>
+                    <label class="form-check-label" for="inlineCheckbox52">Kwai</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/69.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox53" value="option53" checked>
+                    <label class="form-check-label" for="inlineCheckbox53">LICKD</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/48.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox54" value="option54" checked>
+                    <label class="form-check-label" for="inlineCheckbox54">Line Music</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row"> 
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/45.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox55" value="option55" checked>
+                    <label class="form-check-label" for="inlineCheckbox55">Lyricfind</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/70.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox56" value="option56" checked>
+                    <label class="form-check-label" for="inlineCheckbox56">Mdundo </label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/121_Melon.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox57" value="option57" checked>
+                    <label class="form-check-label" for="inlineCheckbox57">Melon</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row"> 
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/71.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox58" value="option58" checked>
+                    <label class="form-check-label" for="inlineCheckbox58">MePlaylist</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/125_Migu_Music.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox59" value="option59" checked>
+                    <label class="form-check-label" for="inlineCheckbox59">Migu Music</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/50.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox60" value="option60" checked>
+                    <label class="form-check-label" for="inlineCheckbox60">Mixcloud</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row"> 
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/122_MobiMusic_(KZ)_Audio.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox61" value="option61" checked>
+                    <label class="form-check-label" for="inlineCheckbox61">MobiMusic (KZ) Audio</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <img src="https://backend.fronicmedia.com/72.png" height="40px" width="112.68px" alt="">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox62" value="option62" checked>
+                  <label class="form-check-label" for="inlineCheckbox62">Mood Media</label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/123_MOOV.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox63" value="option63" checked>
+                  <label class="form-check-label" for="inlineCheckbox63">MOOV</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="row"> 
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/74.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox64" value="option64" checked>
+                  <label class="form-check-label" for="inlineCheckbox64">Music Worx</label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/97.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox65" value="option65" checked>
+                  <label class="form-check-label" for="inlineCheckbox65">Muska</label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/124_Muztube.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox66" value="option66" checked>
+                  <label class="form-check-label" for="inlineCheckbox66">Muztube</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="row"> 
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/15.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox67" value="option67" checked>
+                  <label class="form-check-label" for="inlineCheckbox67">Napster</label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/126_Naver_Vibe.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox68" value="option68" checked>
+                  <label class="form-check-label" for="inlineCheckbox68">Naver Vibe</label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/127_NEC.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox69" value="option69" checked>
+                  <label class="form-check-label" for="inlineCheckbox69">NEC</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="row"> 
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/75.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox70" value="option70" checked>
+                  <label class="form-check-label" for="inlineCheckbox70">NetEase Cloud Music</label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/128_Nile_Air.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox71" value="option71" checked>
+                  <label class="form-check-label" for="inlineCheckbox71">Nile Air </label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/76.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox72" value="option72" checked>
+                  <label class="form-check-label" for="inlineCheckbox72">Nuuday</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="row"> 
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/77.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox73" value="option73" checked>
+                  <label class="form-check-label" for="inlineCheckbox73">Pandora</label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/78.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox74" value="option74" checked>
+                  <label class="form-check-label" for="inlineCheckbox74">Peloton</label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/129_Philippine_Airlines.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox75" value="option75" checked>
+                  <label class="form-check-label" for="inlineCheckbox75">Philippine Air </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="row"> 
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/94.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox76" value="option76" checked>
+                  <label class="form-check-label" for="inlineCheckbox76">Phonographic Performance Limited India</label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/79.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox77" value="option77" checked>
+                  <label class="form-check-label" for="inlineCheckbox77">Phononet</label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/80.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox78" value="option78" checked>
+                  <label class="form-check-label" for="inlineCheckbox78">Pretzel Rocks</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="row"> 
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/130_Qantas.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox79" value="option79" checked>
+                  <label class="form-check-label" for="inlineCheckbox79">Qantas </label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/98.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox80" value="option80" checked>
+                  <label class="form-check-label" for="inlineCheckbox80">Qisum</label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/51.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox81" value="option81" checked>
+                  <label class="form-check-label" for="inlineCheckbox81">Qobuz</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="row"> 
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/131_QQ_Music.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox82" value="option82" checked>
+                  <label class="form-check-label" for="inlineCheckbox82">QQ Music</label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/132_Raku.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox83" value="option83" checked>
+                  <label class="form-check-label" for="inlineCheckbox83">Raku</label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/46.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox84" value="option84" checked>
+                  <label class="form-check-label" for="inlineCheckbox84">Resso</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="row"> 
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/81.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox85" value="option85" checked>
+                  <label class="form-check-label" for="inlineCheckbox85">ROXI (via 7Digital)</label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/13.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox86" value="option86" checked>
+                  <label class="form-check-label" for="inlineCheckbox86">Shazam</label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/133_Snack_Video.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox87" value="option87" checked>
+                  <label class="form-check-label" for="inlineCheckbox87">Snack Video</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="row"> 
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/82.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox88" value="option88" checked>
+                  <label class="form-check-label" for="inlineCheckbox88">Snapchat</label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/56.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox89" value="option89" checked>
+                  <label class="form-check-label" for="inlineCheckbox89">Songtrust</label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/134_Sonos.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox90" value="option90" checked>
+                  <label class="form-check-label" for="inlineCheckbox90">Sonos</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="row"> 
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/14.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox91" value="option91" checked>
+                  <label class="form-check-label" for="inlineCheckbox91">Soundcloud</label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/135_Soundtrack_Your_Brand.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox92" value="option92" checked>
+                  <label class="form-check-label" for="inlineCheckbox92">Soundtrack</label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/1.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox93" value="option93" checked>
+                  <label class="form-check-label" for="inlineCheckbox93">Spotify</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="row"> 
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/87.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox94" value="option94" checked>
+                  <label class="form-check-label" for="inlineCheckbox94">Stellar </label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/136_SunExpress.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox95" value="option95" checked>
+                  <label class="form-check-label" for="inlineCheckbox95">SunExpress </label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/153_Telmore_Musik.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox96" value="option96" checked>
+                  <label class="form-check-label" for="inlineCheckbox96">Telmore Musik</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="row"> 
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/52.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox97" value="option97" checked>
+                  <label class="form-check-label" for="inlineCheckbox97">Tencent Music</label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/137_Thai_Airways.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox98" value="option98" checked>
+                  <label class="form-check-label" for="inlineCheckbox98">Thai Airways </label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/11.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox99" value="option99" checked>
+                  <label class="form-check-label" for="inlineCheckbox99">Tidal</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="row"> 
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/12.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox100" value="option100" checked>
+                  <label class="form-check-label" for="inlineCheckbox100">Tiktok</label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/83.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox101" value="option101" checked>
+                  <label class="form-check-label" for="inlineCheckbox101">TIM Music </label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/84.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox102" value="option102" checked>
+                  <label class="form-check-label" for="inlineCheckbox102">TouchTunes</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="row"> 
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/85.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox103" value="option103" checked>
+                  <label class="form-check-label" for="inlineCheckbox103">Traxsource </label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/86.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox104" value="option104" checked>
+                  <label class="form-check-label" for="inlineCheckbox104">Trebel</label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/99.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox105" value="option105" checked>
+                  <label class="form-check-label" for="inlineCheckbox105">Tuned Global</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="row"> 
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/23.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox106" value="option106" checked>
+                  <label class="form-check-label" for="inlineCheckbox106">United Media</label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/155_UtaPass.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox107" value="option107" checked>
+                  <label class="form-check-label" for="inlineCheckbox107">UtaPass</label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/138_Virgin_Australia.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox108" value="option108" checked>
+                  <label class="form-check-label" for="inlineCheckbox108">Virgin Australia </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="row"> 
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/55.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox109" value="option109" checked>
+                  <label class="form-check-label" for="inlineCheckbox109">Volumo </label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/139_WeSing.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox110" value="option110" checked>
+                  <label class="form-check-label" for="inlineCheckbox110">WeSing</label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/6.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox111" value="option111" checked>
+                  <label class="form-check-label" for="inlineCheckbox111">Wynk Music</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="row"> 
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/22.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox112" value="option112" checked>
+                  <label class="form-check-label" for="inlineCheckbox112">Yandex</label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/154_YouSee_Musik.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox113" value="option113" checked>
+                  <label class="form-check-label" for="inlineCheckbox113">YouSee Musik</label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/5.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox114" value="option114" checked>
+                  <label class="form-check-label" for="inlineCheckbox114">Youtube Music</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="row"> 
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/140_Zaycev.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox115" value="option115" checked>
+                  <label class="form-check-label" for="inlineCheckbox115">Zaycev.net</label>
+                </div>
+              </div>
+              <div class="col-4">
+                <img src="https://backend.fronicmedia.com/47.png" height="40px" width="112.68px" alt="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox116" value="option116" checked>
+                  <label class="form-check-label" for="inlineCheckbox116">ZingMP3</label>
+                </div>
+              </div>
+            </div>
+          </div>
+            <div class="col-12">
+                <div class="content-wrapper">
+                  <h3 class="section-heading mb-2 mt-3">CRBT (4+ Platforms)</h3>
+                  </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <img src="https://backend.fronicmedia.com/33.png"  height="40px" width="112.68px" alt="">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox113" value="option113" checked>
+                <label class="form-check-label" for="inlineCheckbox113"> Airtel </label>
+              </div>
+              <img src="https://backend.fronicmedia.com/54.png"  height="40px" width="112.68px" alt="">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox114" value="option114" checked>
+                <label class="form-check-label" for="inlineCheckbox114"> BSNL </label>
+              </div>
+              <img src="https://backend.fronicmedia.com/53.png"  height="40px" width="112.68px" alt="">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox115" value="option115" checked>
+                <label class="form-check-label" for="inlineCheckbox115"> Jio </label>
+              </div>
+              <img src="https://backend.fronicmedia.com/32.png"  height="40px" width="112.68px" alt="">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox116" value="option116" checked>
+                <label class="form-check-label" for="inlineCheckbox116"> Vi </label>
+              </div>
+            </div>
+            <div class="col-md-4 ms-auto me-auto">
+              <div class="d-flex align-items-center justify-content-center">
+                  <div class="form-group form-group-default">
+                    <a class="btn btn-dark text-center w-100 mt-5"href="/cms/submission">SAVE</a>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+
+{% endblock content %}
+{% block js %}
+  <script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.jss"></script>
+
+{% endblock js %}

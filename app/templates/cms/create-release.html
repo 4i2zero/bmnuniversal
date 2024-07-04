@@ -1,210 +1,283 @@
 {% extends "base_cms.html" %}
 {% block title %} Create Release{% endblock title %}
+{% block css %}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dashboardcode/bsmultiselect@1.1.18/dist/css/BsMultiSelect.bs4.min.css"/>
+<style>
+.badge {
+  color: #000000;
+  border-radius: 0px;
+ 
+  line-height: 1;
+  
+  vertical-align: middle;
+  font-weight: 400;
+  font-size: 11px;
+  border: 0px solid #ffffff;
+  height: fit-content !important;
+  text-align: center;
+  white-space: nowrap;
+}
+
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bs-stepper/dist/css/bs-stepper.min.css">
+  {% endblock css %}
 {% block content %}
 <div class="row ">
+  <div class="col-md-12 ">
+    <div class="card ">
+      <div class="card-body">
+        <div id="stepper1" class="bs-stepper linear overflow-x-scroll" style="width:auto;">
+          <div class="bs-stepper-header" role="tablist">
+            <div class="step active">
+              <button type="button" class="step-trigger" aria-selected="true" >
+                <span class="bs-stepper-circle">
+                  <span class="fas fa-pen-nib" aria-hidden="true"></span>
+                </span>
+                <span class="bs-stepper-label">Release Info</span>
+              </button>
+            </div>
+            <div class="bs-stepper-line"></div>
+            <div class="step">
+              <button type="button" class="step-trigger" aria-selected="false" disabled>
+                <span class="bs-stepper-circle">
+                  <span class="fab fa-itunes-note" aria-hidden="true"></span>
+                </span>
+                <span class="bs-stepper-label">Song Info</span>
+              </button>
+            </div>
+            <div class="bs-stepper-line"></div>
+            <div class="step">
+              <button type="button" class="step-trigger" aria-selected="false" disabled>
+                <span class="bs-stepper-circle">
+                  <span class="fab fa-app-store" aria-hidden="true"></span>
+                </span>
+                <span class="bs-stepper-label">Platforms</span>
+              </button>
+            </div>
+            <div class="bs-stepper-line"></div>
+            <div class="step">
+              <button type="button" class="step-trigger" aria-selected="flase" disabled>
+                <span class="bs-stepper-circle">
+                  <span class="fas fa-volume-up" aria-hidden="true"></span>
+                </span>
+                <span class="bs-stepper-label">submission</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+
+  </div>
     <div class="col-12 ">
         <div class="card">
           <div class="card-header">
-            <ul class="nav nav-pills nav-secondary nav-pills-no-bd justify-content-center" id="pills-tab-without-border" role="tablist">
-              <li class="nav-item submenu" role="presentation">
-                <a class="nav-link active" id="pills-releaseinfo-tab-nobd" data-bs-toggle="pill" href="#pills-releaseinfo-nobd" role="tab" aria-controls="pills-releaseinfo-nobd" aria-selected="true">Release Info</a>
-              </li>
-              <li class="nav-item submenu" role="presentation">
-                <a class="nav-link" id="pills-songinfo-tab-nobd" data-bs-toggle="pill" href="#pills-songinfo-nobd" role="tab" aria-controls="pills-songinfo-nobd" aria-selected="false" tabindex="-1" >Song Info</a>
-              </li>
-              <li class="nav-item submenu" role="presentation">
-                <a class="nav-link" id="pills-platform-tab-nobd" data-bs-toggle="pill" href="#pills-platform-nobd" role="tab" aria-controls="pills-platform-nobd" aria-selected="false" tabindex="-2" >Platforms</a>
-              </li>
-            </ul>
+            <h5 class="card-title "> <i class="fas fa-layer-group text-dark mx-2"></i>  CREATE RELEASE</h5>
           </div>
           <div class="card-body">
-            <div class="tab-content mt-2 mb-3" id="pills-without-border-tabContent">
-              <div class="tab-pane fade active show" id="pills-releaseinfo-nobd" role="tabpanel" aria-labelledby="pills-releaseinfo-nobd">
-                <div class="container">
+            <div class="container">
                   <div class="row justify-content-center">
-                    <div class="col-md-4">
-                      <form id="uploadartwork">
-                        <div class="mb-1">
-                          <div class="bg-white" style="border: 3px solid black; width: 300px; height: 300px" onclick="openImageUpload()">
-                              <div class="d-flex justify-content-center align-items-center" style="width: 100%; height: 100%; background-color: #f5f5f5">
-                                    <img src="/static/add-pic.svg" id="upimg" alt="My SVG Image"  style="border: 3px solid black; width: 300px; height: 300px" />
-                                  <input type="file" id="albumartwork" name="albumartwork"placeholder="ARTWORK" style="display: none"/>
+                    <div class="col-12">
+                      <div class="content-wrapper">
+                        <h4 class="section-heading">Enter Album/Release Details </h4>
+                        <div class="row ">
+                          <form id="uploadartwork">
+                            
+                            <div class="mb-3">
+                              <label class="form-label">Album Artwork</label>
+                              <div class="text-center  col-3">
+                                <div class="bg-white" style="border: 3px solid black; width: 200px; height: 200px" onclick="openImageUpload()">
+                                  <div class="text-center " style="width: 100%; height: 100%; background-color: #f5f5f5">
+                                        <img class="rounded" src="/static/add-pic.svg" id="upimg" style="width: 200px; height: 200px">
+                                      <input type="file" id="albumartwork" name="albumartwork" placeholder="ARTWORK" style="display: none">
+                                  </div>
+                              </div>
+                              </div>
+                              
+                            </div>
+                          </form>
+                          <form id="myForm" method="POST">
+                            <div class="mb-3"><label class="form-label" for="albumName">Title</label>
+                              <input id="albumName" class="form-control form-control" type="text" name="title" id="title" required/></div>
+                            <div class="mb-3"><label class="form-label" for="type">Release Type</label>
+                                <div class="input-group">
+                                  <select id="type" class="form-select form-select" name="type" required>
+                                    <option value="EP">EP</option>
+                                    <option value="SINGLE">SINGLE</option>
+                                    <option value="ALBUM">ALBUM</option>
+                                    <option value="COMPILATION">COMPILATION</option>
+                                  </select>
+                                    </div>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label" for="primaryArtist">Primary Artist</label>
+                              <div class="row">
+                                <div class="col-9">
+                                  <select name="primaryArtists" id="edit-states1-id" class="form-control"  multiple="multiple" required >
+                                    {% for artist in artists  %}
+                                      <option value="{{ artist.name }}">{{ artist.name }}</option>
+                                    {% endfor %}
+                                  </select>
+                                </div>
+                                <div class="col-3">
+                                  <button class="btn btn-dark text-white" type="button"  data-bs-toggle="modal" data-bs-target="#addArtist"><i class="icon-plus"></i></button>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label" for="featuringArtist">Featuring Artist</label>
+                              <div class="row">
+                                <div class="col-9">
+                                  <select name="featuringArtists" id="edit-states1-id2" class="form-control"  multiple="multiple" >
+                                    {% for artist in artists  %}
+                                      <option value="{{ artist.name }}">{{ artist.name }}</option>
+                                    {% endfor %}
+                                  </select>
+                                </div>
+                                <div class="col-3">
+                                  <button class="btn btn-dark text-white" type="button"  data-bs-toggle="modal" data-bs-target="#addArtist"><i class="icon-plus"></i></button>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="mb-3"><label class="form-label" for="genre">Genre</label><select  id="genre" class="form-select form-select" name="genre" required>
+                                    <option value selected>Choose...</option>
+                                    <option value="pop">Pop</option>
+                                    <option value="rock">Rock</option>
+                                    <option value="hiphop">Hip Hop</option>
+                                    <option value="rnb">RnB</option>
+                                    <option value="country">Country</option>
+                                    <option value="jazz">Jazz</option>
+                                    <option value="blues">Blues</option>
+                                    <option value="reggae">Reggae</option>
+                                    <option value="gospel">Gospel</option>
+                                    <option value="soul">Soul</option>
+                                    <option value="dance">Dance</option>
+                                    <option value="electronic">Electronic</option>
+                                    <option value="classical">Classical</option>
+                                    <option value="folk">Folk</option>
+                                    <option value="latin">Latin</option>
+                                    <option value="metal">Metal</option>
+                                    <option value="punk">Punk</option>
+                                    <option value="indie">Indie</option>
+                                    <option value="alternative">Alternative</option>
+                                    <option value="reggaeton">Reggaeton</option>
+                                    <option value="kpop">K-Pop</option>
+                                    <option value="jpop">J-Pop</option>
+                                    <option value="cpop">C-Pop</option>
+                                    <option value="other">Other</option>
+                                </select></div>
+                            <div class="mb-3"><label class="form-label" for="subGenre">Sub Genre</label><input id="subGenre" class="form-control form-control" type="text" name="subGenre" required /></div>
+                            <div class="mb-3"><label class="form-label" for="labelName">Label Name</label><input id="labelName" class="form-control form-control" type="text" name="labelName" required /></div>
+                            <div class="mb-3"><label class="form-label" for="releaseDate">Release Date</label><input id="releaseDate" class="form-control form-control" type="date" name="releaseDate" required/></div>
+                            <div class="mb-3"><label class="form-label" for="pLine">P Line</label><input id="pLine" class="form-control form-control" type="text" name="pLine" required/></div>
+                            <div class="mb-3"><label class="form-label" for="cLine">C Line</label><input id="cLine" class="form-control form-control" type="text" name="cLine"  required/></div>
+                            <div class="mb-3"><label class="form-label" for="upcEan">UPC/EAN</label><input id="upcEan" class="form-control form-control" type="text" name="upcEan" /></div>
+                            <div class="col-md-4 ms-auto me-auto">
+                              <div class="d-flex align-items-center justify-content-center">
+                                      <button type="submit" id="createreleaseinfobtn" class="btn btn-dark text-center mt-3 mb-3 w-100">Submit</button>
                               </div>
                           </div>
+                          </form>
+                        </div>
                       </div>
-                      <div class="mt-2 mb-3">
-                        <a class="artwork-guidlines">ARTWORK GUIDELINES</a>
                     </div>
-                      </form>
-                    </div>
-                    <div class="col-md-8">
-                      <form id="myForm" method="POST">
-                        <div class="mb-3">
-                          <label for="releaseTitle" class="form-label">Release Title</label>
-                          <input type="text" class="form-control" id="releaseTitle" name="releaseTitle">
-                        </div>
-                        <div class="mb-3">
-                          <label for="releaseType" class="form-label">Release Type</label>
-                          <select class="form-select" id="releaseType" name="releaseType">
-                            <option selected>Choose...</option>
-                            <option value="single">Single</option>
-                            <option value="album">Album</option>
-                            <option value="ep">EP</option>
-                          </select>
-                        </div>
-                     
-                        <div class="mb-3">
-                          <label for="primaryArtist1" class="form-label">Primary Artist</label>
-                          <div class="input-group">
-                            <input type="text" class="form-control" id="primaryArtist1" name="primaryArtist1">
-                            <button class="btn btn-success" type="button" id="addPrimaryArtist2Button" onclick="addPrimaryArtist2()">
-                              <i class="icon-plus"></i>
-                            </button>
-                          </div>
-                        </div>
-                        <div class="mb-3" id="primaryArtist2Container" style="display: none;">
-                          <label for="primaryArtist2" class="form-label">Primary Artist 2</label>
-                          <div class="input-group">
-                            <input type="text" class="form-control" id="primaryArtist2" name="primaryArtist2" value="null">
-                            <button class="btn btn-success" type="button" id="addPrimaryArtist3Button" onclick="addPrimaryArtist3()">
-                              <i class="icon-plus"></i>
-                            </button>
-                          </div>
-                        </div>
-                        <div class="mb-3" id="primaryArtist3Container" style="display: none;">
-                          <label for="primaryArtist3" class="form-label">Primary Artist 3</label>
-                          <div class="input-group">
-                            <input type="text" class="form-control" id="primaryArtist3" name="primaryArtist3" value="null">
-                          </div>
-                        </div>
-                        <div class="mb-3">
-                          <label for="featuring1" class="form-label">Featuring Artist</label>
-                          <div class="input-group">
-                            <input type="text" class="form-control" id="featuringArtist1" name="featuringArtist1" value="null">
-                            <button class="btn btn-success" type="button" id="addFeaturingArtist2Button" onclick="addFeaturingArtist2()">
-                              <i class="icon-plus"></i>
-                            </button>
-                          </div>
-                        </div>
-                        <div class="mb-3" id="featuringArtist2Container" style="display: none;">
-                          <label for="featuringArtist2" class="form-label">Featuring Artist 2</label>
-                          <div class="input-group">
-                            <input type="text" class="form-control" id="featuringArtist2" name="featuringArtist2" value="null">
-                            <button class="btn btn-success" type="button" id="addFeaturingArtist3Button" onclick="addFeaturingArtist3()">
-                              <i class="icon-plus"></i>
-                            </button>
-                          </div>
-                        </div>
-                        <div class="mb-3" id="featuringArtist3Container" style="display: none;">
-                          <label for="featuringArtist3" class="form-label">Featuring Artist 3</label>
-                          <div class="input-group">
-                            <input type="text" class="form-control" id="featuringArtist3" name="featuringArtist3" value="null">
-                          </div>
-                        </div>
-                        <div class="mb-3">
-                          <label for="genre" class="form-label">Genre</label>
-                          <select class="form-select" id="genre" name="genre">
-                            <option selected>Choose...</option>
-                            <option value="pop">Pop</option>
-                            <option value="rock">Rock</option>
-                            <option value="hiphop">Hip Hop</option>
-                            <option value="rnb">RnB</option>
-                            <option value="country">Country</option>
-                            <option value="jazz">Jazz</option>
-                            <option value="blues">Blues</option>
-                            <option value="reggae">Reggae</option>
-                            <option value="gospel">Gospel</option>
-                            <option value="soul">Soul</option>
-                            <option value="dance">Dance</option>
-                            <option value="electronic">Electronic</option>
-                            <option value="classical">Classical</option>
-                            <option value="folk">Folk</option>
-                            <option value="latin">Latin</option>
-                            <option value="metal">Metal</option>
-                            <option value="punk">Punk</option>
-                            <option value="indie">Indie</option>
-                            <option value="alternative">Alternative</option>
-                            <option value="reggaeton">Reggaeton</option>
-                            <option value="kpop">K-Pop</option>
-                            <option value="jpop">J-Pop</option>
-                            <option value="cpop">C-Pop</option>
-                            <option value="other">Other</option>
-                          </select>
-                        </div>
-                        <div class="mb-3">
-                          <label for="subGenre" class="form-label">Sub Genre</label>
-                          <input type="text" class="form-control" id="subGenre" name="subGenre">
-                        </div>
-                        <div class="mb-3">
-                          <label for="labelName" class="form-label">Label Name</label>
-                          <input type="text" class="form-control" id="labelName" name="labelName">
-                        </div>
-                        <div class="mb-3">
-                          <label for="releaseDate" class="form-label">Release Date</label>
-                          <input type="date" class="form-control" id="releaseDate" name="releaseDate">
-                        </div>
-                        <div class="mb-3">
-                          <label for="pLine" class="form-label">P Line</label>
-                          <input type="text" class="form-control" id="pLine" name="pLine">
-                        </div>
-                        <div class="mb-3">
-                          <label for="cLine" class="form-label">C Line</label>
-                          <input type="text" class="form-control" id="cLine" name="cLine">
-                        </div>
-                        <div class="mb-3">
-                          <label for="upcEan" class="form-label">UPC/EAN</label>
-                          <input type="text" class="form-control" id="upcEan" name="upcEan">
-                        </div>
-                        <div class="mb-3">
-                          <button type="submit" id="createreleaseinfobtn" class="btn btn-primary">Next</button>
-                        </div>
                   </div>
-                </div>
-
-
-              </div>
-              <div class="tab-pane fade" id="pills-songinfo-nobd" role="tabpanel" aria-labelledby="pills-songinfo-nobd">
-                <p>
-                  Even the all-powerful Pointing has no control about
-                  the blind texts it is an almost unorthographic life
-                  One day however a small line of blind text by the name
-                  of Lorem Ipsum decided to leave for the far World of
-                  Grammar.
-                </p>
-                <p>
-                  The Big Oxmox advised her not to do so, because there
-                  were thousands of bad Commas, wild Question Marks and
-                  devious Semikoli, but the Little Blind Text didn’t
-                  listen. She packed her seven versalia, put her initial
-                  into the belt and made herself on the way.
-                </p>
-              </div>
-              <div class="tab-pane fade" id="pills-platform-nobd" role="tabpanel" aria-labelledby="pills-platform-nobd">
-                <p>
-                  Pityful a rethoric question ran over her cheek, then
-                  she continued her way. On her way she met a copy. The
-                  copy warned the Little Blind Text, that where it came
-                  from it would have been rewritten a thousand times and
-                  everything that was left from its origin would be the
-                  word "and" and the Little Blind Text should turn
-                  around and return to its own, safe country.
-                </p>
-
-                <p>
-                  But nothing the copy said could convince her and so it
-                  didn’t take long until a few insidious Copy Writers
-                  ambushed her, made her drunk with Longe and Parole and
-                  dragged her into their agency, where they abused her
-                  for their
-                </p>
-              </div>
             </div>
           </div>
         </div>
       </div>
 </div>
+<div class="modal fade" id="addArtist" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Artist</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form id="addArtistForm">
+      <div class="modal-body">
+          <div class="mb-3">
+            <label for="artistName" class="form-label">Artist Name</label>
+            <input type="text" class="form-control" name="name" id="artistName" placeholder="Enter artist name" required>
+          </div>
+          <div class="mb-3">
+            <label for="spotify" class="form-label">Spotify URL</label>
+            <input type="url" name="spotify" id="spotify" class="form-control" placeholder="Enter Spotify URL">
+          </div>
+          <div class="mb-3">
+            <label for="apple" class="form-label">Apple Music URL</label>
+            <input type="url" name="apple" id="apple" class="form-control" placeholder="Enter Apple Music URL">
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">ADD ARTIST</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
 {% endblock content %}
 {% block js %}
+<script src="https://cdn.jsdelivr.net/npm/@dashboardcode/bsmultiselect@1.1.18/dist/js/BsMultiSelect.bs4.min.js "> </script>
+<script>
+  var $multiSelects = $("select[multiple='multiple']");
+  function install(){
+      $multiSelects.bsMultiSelect();
+  }
+  install();  
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const addArtistForm = document.getElementById("addArtistForm");
+    addArtistForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const formData = new FormData(addArtistForm);
+      const data = {
+        name: document.getElementById("artistName").value,
+        spotify: document.getElementById("spotify").value,
+        apple:document.getElementById("apple").value
+      };
+
+      fetch("/cms/create-artist", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(data),
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.message === 'Artist created successfully!') {
+          $.notify({
+            icon: 'icon-bell',
+            title: 'NEW ARTIST',
+            message: 'ARTIST ADDED SUCCESSFULLY',
+          },{
+              type: 'success',
+              placement: {
+                  from: "bottom",
+                  align: "right"
+              },
+              time: 9999,
+          });
+          $('#addArtist').modal('hide');
+          // Clear the form
+          addArtistForm.reset();
+          window.location.reload();
+        } else {
+          alert('Please fill in all fields!');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    });
+  });
+</script>
 <script>
   let filenamealbumartwork; // Global variable to store the filename
 
@@ -246,80 +319,6 @@
       // Optionally, display a more user-friendly error message here
     });
   }
-  function addPrimaryArtist2() {
-    const primaryArtist2Container = document.getElementById("primaryArtist2Container");
-    const addPrimaryArtist2Button = document.getElementById("addPrimaryArtist2Button");
-
-    
-    primaryArtist2Container.style.display = "block";
-    addPrimaryArtist2Button.style.display = "none";
-  }
-  function addPrimaryArtist3() {
-    const primaryArtist3Container = document.getElementById("primaryArtist3Container");
-    const addPrimaryArtist3Button = document.getElementById("addPrimaryArtist3Button");
-
-    
-    primaryArtist3Container.style.display = "block";
-    addPrimaryArtist3Button.style.display = "none";
-  }
-  function addFeaturingArtist2() {
-    const featuringArtist2Container = document.getElementById("featuringArtist2Container");
-    const addFeaturingArtist2Button = document.getElementById("addFeaturingArtist2Button");
-
-    
-    featuringArtist2Container.style.display = "block";
-    addFeaturingArtist2Button.style.display = "none";
-  }
-  function addFeaturingArtist3() {
-    const featuringArtist3Container = document.getElementById("featuringArtist3Container");
-    const addFeaturingArtist3Button = document.getElementById("addFeaturingArtist3Button");
-
-    
-    featuringArtist3Container.style.display = "block";
-    addFeaturingArtist3Button.style.display = "none";
-  }
-  document.getElementById('myForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent the default form submission which results in a GET request
-  
-    const formData = new FormData(this); // 'this' refers to the form element
-    fetch('/cms/api/createReleaseInfo', {
-      method: 'POST',
-      body: JSON.stringify({
-        album_artwork: filenamealbumartwork,
-        release_title: document.getElementById('releaseTitle').value,
-        release_type: document.getElementById('releaseType').value,
-        primary_artist1: document.getElementById('primaryArtist1').value,
-        primary_artist2: document.getElementById('primaryArtist2').value,
-        primary_artist3: document.getElementById('primaryArtist3').value,
-        featuring1: document.getElementById('featuringArtist1').value,
-        featuring2: document.getElementById('featuringArtist2').value,
-        featuring3: document.getElementById('featuringArtist3').value,
-        genre: document.getElementById('genre').value,
-        sub_genre: document.getElementById('subGenre').value,
-        lable_name: document.getElementById('labelName').value,
-        release_date: document.getElementById('releaseDate').value,
-        p_line: document.getElementById('pLine').value,
-        c_line: document.getElementById('cLine').value,
-        upc_ean: document.getElementById('upcEan').value
-      }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .then(data => {
-      console.log(data);
-      // Handle success, e.g., showing a success message or redirecting
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      // Handle error, e.g., showing an error message
-    });
-  });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.jss"></script>
 {% endblock js %}

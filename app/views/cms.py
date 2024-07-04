@@ -4,7 +4,7 @@ from flask_login import login_required, current_user
 from . import cms
 from app.extensions import db
 from werkzeug.utils import secure_filename
-from app.models import Artist, User, Releaseinfo, Songinfo
+from app.models import Artist, User, Album, Song, Store, Report, Ticket, Message, Ugc, Profilelinking, Distributelyrics
 
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'mp3', 'wav', 'flac'}
@@ -23,29 +23,11 @@ def cmsdash():
     user = current_user
     name = session.get('name')
     email = session.get('email')
-    phone = session.get('phone')
     revenue = session.get('revenue')
-    artists = Artist.query.filter_by(email=email).all()
+    catlogs = Album.query.filter_by(user_id=user.id).count()
+    artists = Artist.query.filter_by(user_id=user.id).count()
     flash(f'Welcome {name}!', 'success')
-    return render_template('cms/dashboard.html', user=user, name=name, email=email, phone=phone, revenue=revenue, artists=artists , active='dashboard')
-
-@cms.route("/create-release")
-@login_required
-def create_release():
-    artists = Artist.query.filter_by(email=current_user.email).all()
-    return render_template('cms/create-release.html', artists=artists, active='create-release')
-
-@cms.route("/catalog")
-@login_required
-def catalog():
-    catalogs = Releaseinfo.query.filter_by(email=current_user.email).all()
-    return render_template('cms/catalog.html', catalogs=catalogs, active='catalog')
-
-@cms.route("/catalog/<int:releseid>")
-@login_required
-def catalog_details(releseid):
-    release = Releaseinfo.query.filter_by(id=releseid).first()
-    return render_template('cms/catalog-details.html', release=release, active='catalog')
+    return render_template('cms/dashboard.html', user=user, name=name, email=email, revenue=revenue, artists=artists, catlogs=catlogs , nav_id="dashboard")
 
 @cms.route("/api/upload", methods=['POST'])
 def upload_file():
@@ -61,674 +43,484 @@ def upload_file():
         file = request.files['file']
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
+            session['filename'] = filename
             file.save(os.path.join('J:/bmn_universal_music/app/uploads', filename))
             return jsonify({'message': 'File uploaded successfully!', 'filename': filename}), 200
         return jsonify({'message': 'Invalid file type!'}), 400
 
-@cms.route("/api/addArtist", methods=['POST'])
-def add_artist():
+@cms.route("/create-release", methods=['GET', 'POST'])
+@login_required
+def create_release():
     if request.method == 'POST':
-        artist_name = request.json.get('artist_name')
-        spotify_id = request.json.get('spotify_id')
-        apple_id = request.json.get('apple_id')
         user = current_user
-        email = user.email
-        new_artist = Artist(email=email, artist_name=artist_name, spotify_id=spotify_id, apple_id=apple_id)
-        db.session.add(new_artist)
+        filename = session.get('filename')
+
+        if 'upcEan' not in request.form['upcEan']:
+            upc = "--"
+        else:
+            upc = request.form['upcEan']
+
+        if 'featuringArtists' not in request.form['featuringArtists']:
+            featuring = "--"
+        else:
+            featuring = request.form['featuringArtists']
+
+    
+        title = request.form['title']
+        type = request.form['type']
+        primary_artist1 = request.form['primaryArtists']
+        featuring_artist1 = featuring
+        genre = request.form['genre']
+        sub_genre = request.form['subGenre']
+        label_name = request.form['labelName']
+        release_date = request.form['releaseDate']
+        p_line = request.form['pLine']
+        c_line = request.form['cLine']
+        upc_ean = upc
+        album = Album(user_id=user.id, artwork=filename, title=title, type=type, primary_artist1=primary_artist1, featuring_artist1=featuring_artist1, genre=genre, sub_genre=sub_genre, label_name=label_name, release_date=release_date, p_line=p_line, c_line=c_line, upc_ean=upc_ean)
+        db.session.add(album)
         db.session.commit()
-        return jsonify({'message': 'Artist added successfully!'}), 200
+        session["album_id"] = album.id
+        return redirect(url_for('cms.add_track'))
+    user = current_user
+    name = session.get('name')
+    email = session.get('email')
+    revenue = session.get('revenue')
+    artists = Artist.query.filter_by(user_id=user.id).all()
+    return render_template('cms/create-release.html',name=name, email=email, revenue=revenue , artists=artists, nav_id="release")
 
-@cms.route("/api/createReleaseInfo", methods=['POST'])
-def create_release_info():
+@cms.route("/create-artist", methods=['POST'])
+@login_required
+def create_artist():
     if request.method == 'POST':
-        album_artwork = request.json.get('album_artwork')
-        release_title = request.json.get('release_title')
-        release_type = request.json.get('release_type')
-        primary_artist1 = request.json.get('primary_artist1')
-        primary_artist2 = request.json.get('primary_artist2')
-        primary_artist3 = request.json.get('primary_artist3')
-        featuring1 = request.json.get('featuring1')
-        featuring2 = request.json.get('featuring2')
-        featuring3 = request.json.get('featuring3')
-        genre = request.json.get('genre')
-        sub_genre = request.json.get('sub_genre')
-        lable_name = request.json.get('lable_name')
-        release_date = request.json.get('release_date')
-        p_line = request.json.get('p_line')
-        c_line = request.json.get('c_line')
-        upc_ean = request.json.get('upc_ean')
-        email = current_user.email
-        new_release = Releaseinfo(email=email, album_artwork=album_artwork, release_title=release_title, release_type=release_type, primary_artist1=primary_artist1, primary_artist2=primary_artist2, primary_artist3=primary_artist3, featuring1=featuring1, featuring2=featuring2, featuring3=featuring3, genre=genre, sub_genre=sub_genre, lable_name=lable_name, release_date=release_date, p_line=p_line, c_line=c_line, upc_ean=upc_ean)
-        db.session.add(new_release)
+        user = current_user
+        artist_name = request.json['name']
+        if 'spotify'in request.json:
+            spotify_id = request.json['spotify']
+        else:
+            spotify_id = "--"
+        if 'apple'in request.json:
+            apple_id = request.json['apple']
+        else:
+            apple_id = "--"
+        artist = Artist(user_id=user.id, name=artist_name, spotify_id=spotify_id, apple_id=apple_id)
+        db.session.add(artist)
         db.session.commit()
-        latest_release_id = new_release.id
-        return jsonify({'message': 'Release info created successfully!', 'release_id': latest_release_id}), 200
-
-@cms.route("/api/addSongInfo", methods=['POST'])
-def add_song_info():
+        return jsonify({'message': 'Artist created successfully!'}), 200
+    
+@cms.route("/add-track", methods=['GET','POST'])
+@login_required
+def add_track():
     if request.method == 'POST':
-        release_id = request.json.get('release_id')
-        audio_track = request.json.get('audio_track')
-        track_version = request.json.get('track_version')
-        instrumental = request.json.get('instrumental')
-        title = request.json.get('title')
-        version_subtitle = request.json.get('version_subtitle')
-        primary_artist1 = request.json.get('primary_artist1')
-        primary_artist2 = request.json.get('primary_artist2')
-        primary_artist3 = request.json.get('primary_artist3')
-        featuring1 = request.json.get('featuring1')
-        featuring2 = request.json.get('featuring2')
-        featuring3 = request.json.get('featuring3')
-        author1 = request.json.get('author1')
-        author2 = request.json.get('author2')
-        author3 = request.json.get('author3')
-        composer1 = request.json.get('composer1')
-        composer2 = request.json.get('composer2')
-        composer3 = request.json.get('composer3')
-        producer = request.json.get('producer')
-        p_line = request.json.get('p_line')
-        production_year = request.json.get('production_year')
-        publisher = request.json.get('publisher')
-        isrc_yes_no = request.json.get('isrc_yes_no')
-        isrc = request.json.get('isrc')
-        genre = request.json.get('genre')
-        subgenre = request.json.get('subgenre')
-        price_tier = request.json.get('price_tier')
-        explicit_version = request.json.get('explicit_version')
-        track_title_language = request.json.get('track_title_language')
-        lyrics_language = request.json.get('lyrics_language')
-        lyrics = request.json.get('lyrics')
-        caller_tune = request.json.get('caller_tune')
-        destribute_music = request.json.get('destribute_music')
-        video_isrc = request.json.get('video_isrc')
-        download_video_link = request.json.get('download_video_link')
-        saved = request.json.get('saved')
-        edit = request.json.get('edit')
-        primary_artist1 = Artist.query.filter_by(id=primary_artist1).first()
-        selectedSongPrimaryArtist = [{'artist_id': primary_artist1.id,'artist_name': primary_artist1.artist_name, 'apple_id': primary_artist1.apple_id, 'spotify_id': primary_artist1.spotify_id}]
-        selectedSongfeaturingArtist = request.json.get('selectedSongfeaturingArtist')
-        selectedSongAuthor = request.json.get('selectedSongAuthor')
-        selectedSongComposer = request.json.get('selectedSongComposer')
-        email = current_user.email
-        new_songinfo = Songinfo(email=email, release_id=release_id, audio_track=audio_track, track_version=track_version, instrumental=instrumental, title=title, version_subtitle=version_subtitle, primary_artist1=primary_artist1.artist_name, primary_artist2=primary_artist2, primary_artist3=primary_artist3, featuring1=featuring1, featuring2=featuring2, featuring3=featuring3, author1=author1, author2=author2, author3=author3, composer1=composer1, composer2=composer2, composer3=composer3, producer=producer, p_line=p_line, production_year=production_year, publisher=publisher, isrc_yes_no=isrc_yes_no, isrc=isrc, genre=genre, subgenre=subgenre, price_tier=price_tier, explicit_version=explicit_version, track_title_language=track_title_language, lyrics_language=lyrics_language, lyrics=lyrics, caller_tune=caller_tune, destribute_music=destribute_music, video_isrc=video_isrc, download_video_link=download_video_link, saved=saved, edit=edit, selectedSongPrimaryArtist=selectedSongPrimaryArtist, selectedSongfeaturingArtist=selectedSongfeaturingArtist, selectedSongAuthor=selectedSongAuthor, selectedSongComposer=selectedSongComposer)
-        db.session.add(new_songinfo)
+        album_id = int(request.form['albumId'])
+        tracl_File = session.get('filename')
+        version = request.form['version']
+        instrumental = request.form['instrumental']
+        title = request.form['title']
+        subtitle = request.form['subtitle']
+        primary_artist = request.form['primaryArtists']
+        featuring_artists = request.form['featuringArtists']
+        author = request.form['author']
+        producer = request.form['producer']
+        composer = request.form['composer']
+        p_line = request.form['pLine']
+        production_year = request.form['productionYear']
+        publisher = request.form['publisher']
+        genre = request.form['genre']
+        sub_genre = request.form['subGenre']
+        explicit = request.form['explicit']
+        if explicit == 'True':
+            explicit = True
+        else:
+            explicit = False
+        title_language = request.form['titleLanguage']
+        lyrics_language = request.form['lyricsLanguage']
+        lyrics = request.form['lyrics']
+        callertune = request.form['callertune']
+        song = Song(album_id=album_id, track=tracl_File, version=version, instrumental=instrumental, title=title, subtitle=subtitle, primary_artist1=primary_artist, featuring_artist1=featuring_artists, author=author, composer=composer, producer=producer, p_line=p_line, production_year=production_year, publisher=publisher, genre=genre, subgenre=sub_genre, explicit=explicit, title_language=title_language, lyrics_language=lyrics_language, lyrics=lyrics, caller_tune=callertune)
+        db.session.add(song)
         db.session.commit()
-        latest_song_id = new_songinfo.id
-        return jsonify({'message': 'Song info added successfully!', 'song_id': latest_song_id}), 200
+        stores = [
+            '7 Digital',
+            'Adaptr',
+            'Air India (Curated)',
+            'Air Vanuatu (Curated)',
+            'AirAsia (Curated)',
+            'AirAsiaX (Curated)',
+            'Alibaba Music',
+            'Amazon',
+            'AMI Entertainment',
+            'Anghami',
+            'Apple Music',
+            'Artcore (Curated)',
+            'Audible Magic',
+            'AudioClub',
+            'Audiomack',
+            'AWA',
+            'Beatport (Curated)',
+            'Beatsource (Curated)',
+            'Beeline Music',
+            'Bmat',
+            'Boomplay',
+            'Bubuka Audio',
+            'Bugs',
+            'China Airlines (Curated)',
+            'ClicknClear (Licensing)',
+            'COOLVOX',
+            'Damroo',
+            'Deezer',
+            'Facebook,Instagram',
+            'Fizy',
+            'FLO Music',
+            'FonMix',
+            'Gaana',
+            'Genie Music',
+            'GMF AeroAsia (Curated)',
+            'Gracenote',
+            'Grandpad',
+            'HUAWEI Music',
+            'Hungama',
+            'iHeartRadio',
+            'iMusica',
+            'iTune',
+            'Jaxsta',
+            'Jetstar (Curated)',
+            'JioSaavn',
+            'JOOX',
+            'Kanijan',
+            'KK Box',
+            'Kuack Media',
+            'Kuaishou',
+            'Kugou',
+            'Kuwo',
+            'Kwai',
+            'LICKD',
+            'Line Music',
+            'Lyricfind',
+            'Mdundo (Curated)',
+            'Melon',
+            'MePlaylist',
+            'Migu Music',
+            'Mixcloud',
+            'MobiMusic (KZ) Audio',
+            'Mood Media',
+            'MOOV',
+            'Music Worx',
+            'Muska',
+            'Muztube',
+            'Napster',
+            'Naver Vibe',
+            'NEC',
+            'NetEase Cloud Music',
+            'Nile Air (Curated)',
+            'Nuuday',
+            'Pandora',
+            'Peloton',
+            'Philippine Airlines (Curated)',
+            'Phonographic Performance Limited India',
+            'Phononet',
+            'Pretzel Rocks',
+            'Psonar',
+            'Qantas (Curated)',
+            'Qisum',
+            'Qobuz',
+            'QQ Music',
+            'Raku',
+            'Resso',
+            'ROXI (via 7Digital)',
+            'Shazam',
+            'Snack Video',
+            'Snapchat',
+            'Songtrust (Publishing)',
+            'Sonos',
+            'Soundcloud',
+            'Soundtrack Your Brand',
+            'Spotify',
+            'Stellar Entertainment (Curated)',
+            'SunExpress (Curated)',
+            'Telmore Musik',
+            'Tencent Music',
+            'Thai Airways (Curated)',
+            'Tidal',
+            'Tiktok',
+            'TIM Music (Curated)',
+            'TouchTunes',
+            'Traxsource (Curated)',
+            'Trebel',
+            'Tuned Global',
+            'United Media Agency',
+            'UtaPass',
+            'Virgin Australia (Curated)',
+            'Volumo (Curated)',
+            'WeSing',
+            'Wynk Music',
+            'Yandex',
+            'YouSee Musik',
+            'Youtube Music',
+            'Zaycev.net',
+            'ZingMP3',
+            'Airtel',
+            'Belgacom / Tango',
+            'BSNL',
+            'Celcom',
+            'Deutsche Telekom Austria and Netherlands',
+            'DiGi',
+            'Fastweb',
+            'FETnet',
+            'iMUSIC (China Telecom)',
+            'JIO',
+            'Orange France',
+            'Swisscom',
+            'TELE2',
+            'Tigo',
+            'U-Mobile',
+            'Vi',
+        ]     
+        song_id = song.id
+        session["song_id"] = song_id
+        for store in stores:
+            newstore = Store(song_id=song_id, store_name=store)
+            db.session.add(newstore)
+            db.session.commit()
+        user = current_user
+        songs = Song.query.filter_by(album_id=album_id).all()
+        album_id = album_id
+        name = session.get('name')
+        email = session.get('email')
+        revenue = session.get('revenue')
+        artists = Artist.query.filter_by(user_id=user.id).all()
+        album = Album.query.filter_by(id=album_id).first()
+        flash('Track Added successfully!', 'success')
+        return render_template('cms/add-song.html', name=name, email=email, revenue=revenue, album=album ,artists=artists, album_id=album_id, songs=songs, nav_id="release")
+    else:
+        album_id = session.get('album_id')
+        user = current_user
+        songs = Song.query.filter_by(album_id=album_id).all()
+        name = session.get('name')
+        email = session.get('email')
+        revenue = session.get('revenue')
+        artists = Artist.query.filter_by(user_id=user.id).all()
+        album = Album.query.filter_by(id=album_id).first()
+        flash('Album created successfully!', 'success')
+        return render_template('cms/add-song.html', name=name, email=email, revenue=revenue, album=album ,artists=artists, album_id=album_id, songs=songs, nav_id="release")
+    
 
-@cms.route("/api/SubmissionData/<int:releseid>", methods=['GET'])
-def submission_data(releseid):
+@cms.route("/add-store", methods=['GET','POST'])
+@login_required
+def add_store():
+    name = session.get('name')
+    email = session.get('email')
+    revenue = session.get('revenue')
+    stores = Store.query.filter_by(song_id=session.get('song_id')).all()
+    return render_template('cms/add-store.html', name=name, email=email, revenue=revenue, stores=stores, nav_id="release")
+
+@cms.route("/submission")
+@login_required
+def submission():
+    album_id = session.get('album_id')
+    user = current_user
+    name = session.get('name')
+    email = session.get('email')
+    revenue = session.get('revenue')
+    album = Album.query.filter_by(id=album_id).first()
+    songs_number = Song.query.filter_by(album_id=album_id).count()
+    return render_template('cms/submission.html', name=name, email=email, revenue=revenue, album=album, songs_number=songs_number, nav_id="release")
+
+@cms.route("/catalog")
+@login_required
+def catalog():
+    user = current_user
+    name = session.get('name')
+    email = session.get('email')
+    revenue = session.get('revenue')
+    albums = Album.query.filter_by(user_id=user.id).all()
+    total_albums = Album.query.filter_by(user_id=user.id).count()
+    return render_template('cms/catalog.html', name=name, email=email, revenue=revenue, albums=albums, total_albums=total_albums, nav_id="catalog")
+
+@cms.route("/album/<int:album_id>")
+@login_required
+def album(album_id):
+    user = current_user
+    name = session.get('name')
+    email = session.get('email')
+    revenue = session.get('revenue')
+    album = Album.query.filter_by(id=album_id).first()
+    songs = Song.query.filter_by(album_id=album_id).all()
+    return render_template('cms/album.html', name=name, email=email, revenue=revenue, album=album, songs=songs, nav_id="catalog")
+
+@cms.route("/stores")
+@login_required
+def stores():
+    user = current_user
+    name = session.get('name')
+    email = session.get('email')
+    revenue = session.get('revenue')
+    stores = Store.query.all()
+    return render_template('cms/stores.html', name=name, email=email, revenue=revenue, stores=stores, nav_id="dashboard")
+
+@cms.route("/reports", methods=['GET','POST'])
+@cms.route("/report", methods=['GET','POST'])
+@login_required
+def report():
+    user = current_user
     if request.method == 'POST':
-        release_id = releseid
-        release = Releaseinfo.query.filter_by(id=release_id).first()
-        album_artwork = release.album_artwork
-        release_title = release.release_title
-        genre = release.genre
-        sub_genre = release.sub_genre
-        lable_name = release.lable_name
-        primary_artist1 = release.primary_artist1
-        tracks = Songinfo.query.filter_by(release_id=release_id).all()
-        number_of_tracks = len(tracks)
-        return jsonify({'album_artwork': album_artwork, 'release_title': release_title, 'genre': genre, 'sub_genre': sub_genre, 'lable_name': lable_name, 'primary_artist1': primary_artist1, 'number_of_tracks': number_of_tracks}), 200
+        report_for = request.form['reportFor']
+        start_date = request.form['startDate']
+        end_date = request.form['endDate']
+        report = Report(user_id=user.id, report_for=report_for, start_date=start_date, end_date=end_date)
+        db.session.add(report)
+        db.session.commit()
+        flash('Report Requested successfully!', 'success')
+        return redirect(url_for('cms.report'))
+    name = session.get('name')
+    email = session.get('email')
+    revenue = session.get('revenue')
+    reports = Report.query.filter_by(user_id=user.id).all()
+    return render_template('cms/report.html', name=name, email=email, revenue=revenue,reports=reports, nav_id="reports")
 
 
-@cms.route("/catalog", methods=['GET'])
-def get_catalog():
-    return render_template('cms/catalog.html', active='catalog')
+@cms.route("/tickets", methods=['GET','POST'])
+@cms.route("/ticket", methods=['GET','POST'])
+@login_required
+def tickets():
+    user = current_user
+    if request.method == 'POST':
+        reason = request.form['reason']
+        ticket = Ticket(user_id=user.id, reason=reason)
+        db.session.add(ticket)
+        db.session.commit()
+        if 'attachment' in request.files:
+            file = request.files['attachment']
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file.save(os.path.join('J:/bmn_universal_music/app/uploads', filename))
+                message = request.form['message']
+                attachment = filename
+                ticket_id = ticket.id
+                newmessage = Message(ticket_id=ticket_id,author_id=user.id, message=message, attachment=attachment)
+                db.session.add(newmessage)
+                db.session.commit()
+                flash('Ticket created successfully!', 'success')
+                return redirect(url_for('cms.tickets'))
+            else:
+                message = request.form['message']
+                ticket_id = ticket.id
+                newmessage = Message(ticket_id=ticket_id,author_id=user.id, message=message)
+                db.session.add(newmessage)
+                db.session.commit()
+                flash('Ticket created successfully!', 'success')
+                return redirect(url_for('cms.tickets'))
+
+        else:
+            message = request.form['message']
+            ticket_id = ticket.id
+            newmessage = Message(ticket_id=ticket_id, author_id=user.id , message=message)
+            db.session.add(newmessage)
+            db.session.commit()
+            flash('Ticket created successfully!', 'success')
+            return redirect(url_for('cms.tickets'))
+    name = session.get('name')
+    email = session.get('email')
+    revenue = session.get('revenue')
+    tickets = Ticket.query.filter_by(user_id=user.id).all()
+    return render_template('cms/tickets.html', name=name, email=email, revenue=revenue, tickets=tickets, nav_id="ticket")
 
 
+@cms.route("/ticket/<int:ticket_id>", methods=['GET','POST'])
+@login_required
+def ticket(ticket_id):
+    if request.method == 'POST':
+        message = request.form['message']
+        ticket_id = ticket_id
+        user = current_user
+        newmessage = Message(ticket_id=ticket_id, author_id=user.id , message=message)
+        db.session.add(newmessage)
+        db.session.commit()
+        flash('Message Sent successfully!', 'success')
+        return redirect(f'/cms/ticket/{ticket_id}')
+    user = current_user
+    user_id= user.id
+    name = session.get('name')
+    email = session.get('email')
+    revenue = session.get('revenue')
+    ticket = Ticket.query.filter_by(id=ticket_id).first()
+    messages = Message.query.filter_by(ticket_id=ticket_id).all()
+    return render_template('cms/ticket.html', user_id=user_id,name=name, email=email, revenue=revenue,messages=messages, ticket=ticket, nav_id="ticket")
 
-'''
-GET Logos:
-    URL : /api/getLogos
-    Method : GET
-    Response :
-    [
-        {
-            "logo_id": 1,
-            "type": "1",
-            "name": "7 Digital",
-            "logo": "https://backend.fronicmedia.com/17.png"
-        },
-        {
-            "logo_id": 2,
-            "type": "1",
-            "name": "Adaptr",
-            "logo": "https://backend.fronicmedia.com/59.png"
-        },
-        {
-            "logo_id": 3,
-            "type": "1",
-            "name": "Amazon",
-            "logo": "https://backend.fronicmedia.com/3.png"
-        },
-        {
-            "logo_id": 4,
-            "type": "1",
-            "name": "AMI Entertainment",
-            "logo": "https://backend.fronicmedia.com/60.png"
-        },
-        {
-            "logo_id": 5,
-            "type": "1",
-            "name": "Anghami",
-            "logo": "https://backend.fronicmedia.com/18.png"
-        },
-        {
-            "logo_id": 6,
-            "type": "1",
-            "name": "Apple Music",
-            "logo": "https://backend.fronicmedia.com/2.png"
-        },
-        {
-            "logo_id": 7,
-            "type": "1",
-            "name": "Artcore (Curated)",
-            "logo": "https://backend.fronicmedia.com/91.png"
-        },
-        {
-            "logo_id": 8,
-            "type": "1",
-            "name": "Audible Magic",
-            "logo": "https://backend.fronicmedia.com/20.png"
-        },
-        {
-            "logo_id": 9,
-            "type": "1",
-            "name": "Audiomack",
-            "logo": "https://backend.fronicmedia.com/49.png"
-        },
-        {
-            "logo_id": 10,
-            "type": "1",
-            "name": "AWA",
-            "logo": "https://backend.fronicmedia.com/61.png"
-        },
-        {
-            "logo_id": 11,
-            "type": "1",
-            "name": "Beatport (Curated)",
-            "logo": "https://backend.fronicmedia.com/19.png"
-        },
-        {
-            "logo_id": 12,
-            "type": "1",
-            "name": "Beatsource (Curated)",
-            "logo": "https://backend.fronicmedia.com/24.png"
-        },
-        {
-            "logo_id": 13,
-            "type": "1",
-            "name": "Bmat",
-            "logo": "https://backend.fronicmedia.com/25.png"
-        },
-        {
-            "logo_id": 14,
-            "type": "1",
-            "name": "Boomplay",
-            "logo": "https://backend.fronicmedia.com/30.jpg"
-        },
-        {
-            "logo_id": 15,
-            "type": "1",
-            "name": "ClicknClear (Licensing)",
-            "logo": "https://backend.fronicmedia.com/58.png"
-        },
-        {
-            "logo_id": 16,
-            "type": "1",
-            "name": "Damroo",
-            "logo": "https://backend.fronicmedia.com/92.png"
-        },
-        {
-            "logo_id": 17,
-            "type": "1",
-            "name": "Deezer",
-            "logo": "https://backend.fronicmedia.com/10.png"
-        },
-        {
-            "logo_id": 18,
-            "type": "1",
-            "name": "Facebook,Instagram",
-            "logo": "https://backend.fronicmedia.com/9.png"
-        },
-        {
-            "logo_id": 19,
-            "type": "1",
-            "name": "Fizy",
-            "logo": "https://backend.fronicmedia.com/27.png"
-        },
-        {
-            "logo_id": 20,
-            "type": "1",
-            "name": "FLO Music",
-            "logo": "https://backend.fronicmedia.com/63.png"
-        },
-        {
-            "logo_id": 21,
-            "type": "1",
-            "name": "Gaana",
-            "logo": "https://backend.fronicmedia.com/8.png"
-        },
-        {
-            "logo_id": 22,
-            "type": "1",
-            "name": "Genie Music",
-            "logo": "https://backend.fronicmedia.com/64.png"
-        },
-        {
-            "logo_id": 23,
-            "type": "1",
-            "name": "Gracenote",
-            "logo": "https://backend.fronicmedia.com/28.png"
-        },
-        {
-            "logo_id": 24,
-            "type": "1",
-            "name": "Hungama",
-            "logo": "https://backend.fronicmedia.com/7.png"
-        },
-        {
-            "logo_id": 25,
-            "type": "1",
-            "name": "iHeartRadio",
-            "logo": "https://backend.fronicmedia.com/65.png"
-        },
-        {
-            "logo_id": 26,
-            "type": "1",
-            "name": "iMusica",
-            "logo": "https://backend.fronicmedia.com/66.png"
-        },
-        {
-            "logo_id": 27,
-            "type": "1",
-            "name": "Jaxsta",
-            "logo": "https://backend.fronicmedia.com/29.png"
-        },
-        {
-            "logo_id": 28,
-            "type": "1",
-            "name": "JioSaavn",
-            "logo": "https://backend.fronicmedia.com/4.png"
-        },
-        {
-            "logo_id": 29,
-            "type": "1",
-            "name": "JOOX",
-            "logo": "https://backend.fronicmedia.com/67.png"
-        },
-        {
-            "logo_id": 30,
-            "type": "1",
-            "name": "KK Box",
-            "logo": "https://backend.fronicmedia.com/21.png"
-        },
-        {
-            "logo_id": 31,
-            "type": "1",
-            "name": "Kuack Media",
-            "logo": "https://backend.fronicmedia.com/68.png"
-        },
-        {
-            "logo_id": 32,
-            "type": "1",
-            "name": "LICKD",
-            "logo": "https://backend.fronicmedia.com/69.png"
-        },
-        {
-            "logo_id": 33,
-            "type": "1",
-            "name": "Line Music",
-            "logo": "https://backend.fronicmedia.com/48.png"
-        },
-        {
-            "logo_id": 34,
-            "type": "1",
-            "name": "Lyricfind",
-            "logo": "https://backend.fronicmedia.com/45.png"
-        },
-        {
-            "logo_id": 35,
-            "type": "1",
-            "name": "Mdundo (Curated)",
-            "logo": "https://backend.fronicmedia.com/70.png"
-        },
-        {
-            "logo_id": 36,
-            "type": "1",
-            "name": "MePlaylist",
-            "logo": "https://backend.fronicmedia.com/71.png"
-        },
-        {
-            "logo_id": 37,
-            "type": "1",
-            "name": "Mixcloud",
-            "logo": "https://backend.fronicmedia.com/50.png"
-        },
-        {
-            "logo_id": 38,
-            "type": "1",
-            "name": "Mood Media",
-            "logo": "https://backend.fronicmedia.com/72.png"
-        },
-        {
-            "logo_id": 39,
-            "type": "1",
-            "name": "Music Worx",
-            "logo": "https://backend.fronicmedia.com/74.png"
-        },
-        {
-            "logo_id": 40,
-            "type": "1",
-            "name": "Muska",
-            "logo": "https://backend.fronicmedia.com/97.png"
-        },
-        {
-            "logo_id": 41,
-            "type": "1",
-            "name": "Napster",
-            "logo": "https://backend.fronicmedia.com/15.png"
-        },
-        {
-            "logo_id": 42,
-            "type": "1",
-            "name": "NetEase Cloud Music",
-            "logo": "https://backend.fronicmedia.com/75.png"
-        },
-        {
-            "logo_id": 43,
-            "type": "1",
-            "name": "Nuuday",
-            "logo": "https://backend.fronicmedia.com/76.png"
-        },
-        {
-            "logo_id": 44,
-            "type": "1",
-            "name": "Pandora",
-            "logo": "https://backend.fronicmedia.com/77.png"
-        },
-        {
-            "logo_id": 45,
-            "type": "1",
-            "name": "Peloton",
-            "logo": "https://backend.fronicmedia.com/78.png"
-        },
-        {
-            "logo_id": 46,
-            "type": "1",
-            "name": "Phonographic Performance Limited India",
-            "logo": "https://backend.fronicmedia.com/94.png"
-        },
-        {
-            "logo_id": 47,
-            "type": "1",
-            "name": "Phononet",
-            "logo": "https://backend.fronicmedia.com/79.png"
-        },
-        {
-            "logo_id": 48,
-            "type": "1",
-            "name": "Pretzel Rocks",
-            "logo": "https://backend.fronicmedia.com/80.png"
-        },
-        {
-            "logo_id": 49,
-            "type": "1",
-            "name": "Qisum",
-            "logo": "https://backend.fronicmedia.com/98.png"
-        },
-        {
-            "logo_id": 50,
-            "type": "1",
-            "name": "Qobuz",
-            "logo": "https://backend.fronicmedia.com/51.png"
-        },
-        {
-            "logo_id": 51,
-            "type": "1",
-            "name": "Resso",
-            "logo": "https://backend.fronicmedia.com/46.png"
-        },
-        {
-            "logo_id": 52,
-            "type": "1",
-            "name": "ROXI (via 7Digital)",
-            "logo": "https://backend.fronicmedia.com/81.png"
-        },
-        {
-            "logo_id": 53,
-            "type": "1",
-            "name": "Shazam",
-            "logo": "https://backend.fronicmedia.com/13.png"
-        },
-        {
-            "logo_id": 54,
-            "type": "1",
-            "name": "Snapchat",
-            "logo": "https://backend.fronicmedia.com/82.png"
-        },
-        {
-            "logo_id": 55,
-            "type": "1",
-            "name": "Songtrust (Publishing)",
-            "logo": "https://backend.fronicmedia.com/56.png"
-        },
-        {
-            "logo_id": 56,
-            "type": "1",
-            "name": "Soundcloud",
-            "logo": "https://backend.fronicmedia.com/14.png"
-        },
-        {
-            "logo_id": 57,
-            "type": "1",
-            "name": "Spotify",
-            "logo": "https://backend.fronicmedia.com/1.png"
-        },
-        {
-            "logo_id": 58,
-            "type": "1",
-            "name": "Stellar Entertainment (Curated)",
-            "logo": "https://backend.fronicmedia.com/87.png"
-        },
-        {
-            "logo_id": 59,
-            "type": "1",
-            "name": "Tencent Music",
-            "logo": "https://backend.fronicmedia.com/52.png"
-        },
-        {
-            "logo_id": 60,
-            "type": "1",
-            "name": "Tidal",
-            "logo": "https://backend.fronicmedia.com/11.png"
-        },
-        {
-            "logo_id": 61,
-            "type": "1",
-            "name": "Tiktok",
-            "logo": "https://backend.fronicmedia.com/12.png"
-        },
-        {
-            "logo_id": 62,
-            "type": "1",
-            "name": "TIM Music (Curated)",
-            "logo": "https://backend.fronicmedia.com/83.png"
-        },
-        {
-            "logo_id": 63,
-            "type": "1",
-            "name": "TouchTunes",
-            "logo": "https://backend.fronicmedia.com/84.png"
-        },
-        {
-            "logo_id": 64,
-            "type": "1",
-            "name": "Traxsource (Curated)",
-            "logo": "https://backend.fronicmedia.com/85.png"
-        },
-        {
-            "logo_id": 65,
-            "type": "1",
-            "name": "Trebel",
-            "logo": "https://backend.fronicmedia.com/87.png"
-        },
-        {
-            "logo_id": 66,
-            "type": "1",
-            "name": "Tuned Global",
-            "logo": "https://backend.fronicmedia.com/99.png"
-        },
-        {
-            "logo_id": 67,
-            "type": "1",
-            "name": "United Media Agency",
-            "logo": "https://backend.fronicmedia.com/23.png"
-        },
-        {
-            "logo_id": 68,
-            "type": "1",
-            "name": "Volumo (Curated)",
-            "logo": "https://backend.fronicmedia.com/55.png"
-        },
-        {
-            "logo_id": 69,
-            "type": "1",
-            "name": "Wynk Music",
-            "logo": "https://backend.fronicmedia.com/6.png"
-        },
-        {
-            "logo_id": 70,
-            "type": "1",
-            "name": "Yandex",
-            "logo": "https://backend.fronicmedia.com/22.png"
-        },
-        {
-            "logo_id": 71,
-            "type": "1",
-            "name": "Youtube Music",
-            "logo": "https://backend.fronicmedia.com/5.png"
-        },
-        {
-            "logo_id": 72,
-            "type": "1",
-            "name": "ZingMP3",
-            "logo": "https://backend.fronicmedia.com/47.png"
-        },
-        {
-            "logo_id": 80,
-            "type": "2",
-            "name": "BSNL",
-            "logo": "https://backend.fronicmedia.com/54.png"
-        },
-        {
-            "logo_id": 81,
-            "type": "2",
-            "name": "JIO",
-            "logo": "https://backend.fronicmedia.com/53.png"
-        },
-        {
-            "logo_id": 82,
-            "type": "2",
-            "name": "Airtel",
-            "logo": "https://backend.fronicmedia.com/33.png"
-        },
-        {
-            "logo_id": 83,
-            "type": "2",
-            "name": "Vi",
-            "logo": "https://backend.fronicmedia.com/32.png"
-        },
-        {
-            "logo_id": 93,
-            "type": "3",
-            "name": "AMI Entertainment",
-            "logo": "https://backend.fronicmedia.com/60.png"
-        },
-        {
-            "logo_id": 94,
-            "type": "3",
-            "name": "Apple Music (Paid)",
-            "logo": "https://backend.fronicmedia.com/36.png"
-        },
-        {
-            "logo_id": 95,
-            "type": "3",
-            "name": "Boomplay",
-            "logo": "https://backend.fronicmedia.com/30.jpg"
-        },
-        {
-            "logo_id": 96,
-            "type": "3",
-            "name": "Facebook PMV",
-            "logo": "https://backend.fronicmedia.com/88.png"
-        },
-        {
-            "logo_id": 97,
-            "type": "3",
-            "name": "Fizy",
-            "logo": "https://backend.fronicmedia.com/27.png"
-        },
-        {
-            "logo_id": 98,
-            "type": "3",
-            "name": "Gogopix (Curated)",
-            "logo": "https://backend.fronicmedia.com/89.png"
-        },
-        {
-            "logo_id": 99,
-            "type": "3",
-            "name": "Hungama",
-            "logo": "https://backend.fronicmedia.com/37.png"
-        },
-        {
-            "logo_id": 100,
-            "type": "3",
-            "name": "Line Music",
-            "logo": "https://backend.fronicmedia.com/48.png"
-        },
-        {
-            "logo_id": 101,
-            "type": "3",
-            "name": "ROXi Video",
-            "logo": "https://backend.fronicmedia.com/90.png"
-        },
-        {
-            "logo_id": 102,
-            "type": "3",
-            "name": "Tencent",
-            "logo": "https://backend.fronicmedia.com/52.png"
-        },
-        {
-            "logo_id": 103,
-            "type": "3",
-            "name": "Tidal",
-            "logo": "https://backend.fronicmedia.com/40.png"
-        },
-        {
-            "logo_id": 104,
-            "type": "3",
-            "name": "TikTok Music\n",
-            "logo": "https://backend.fronicmedia.com/96.png"
-        },
-        {
-            "logo_id": 105,
-            "type": "3",
-            "name": "VI",
-            "logo": "https://backend.fronicmedia.com/32.png"
-        },
-        {
-            "logo_id": 106,
-            "type": "3",
-            "name": "Xite",
-            "logo": "https://backend.fronicmedia.com/42.png"
-        },
-        {
-            "logo_id": 107,
-            "type": "3",
-            "name": "ZingMP3",
-            "logo": "https://backend.fronicmedia.com/47.png"
-        }
-    ]
-'''
+@cms.route('/withdrawal', methods=['GET','POST'])
+@login_required
+def withdraw():
+    user = current_user
+    user_id = user.id
+    name = session.get('name')
+    email = session.get('email')
+    revenue = int(session.get('revenue'))
+    return render_template('cms/withdrawal.html',user=user, user_id=user_id , name=name, email=email, revenue=revenue, nav_id="withdrawal")
+
+@cms.route('/ugc-claims', methods=['GET','POST'])
+@login_required
+def ugc():
+    user = current_user
+    user_id = user.id
+    name = session.get('name')
+    email = session.get('email')
+    revenue = int(session.get('revenue'))
+    ugcs = Ugc.query.filter_by(user_id=user_id).all()
+    releases= Album.query.filter_by(user_id=user_id).all()
+    if request.method == 'POST':
+        release_title = request.form['releaseTitle']
+        audio_title = request.form['audioTitle']
+        policy = request.form['policy']
+        url = request.form['url']
+        ugc = Ugc(user_id=user_id, release_title=release_title, audio_title=audio_title, policy=policy, url=url)
+        db.session.add(ugc)
+        db.session.commit()
+        flash('UGC Claimed successfully!', 'success')
+        return redirect(url_for('cms.ugc'))
+    return render_template('cms/ugc.html', user=user, user_id=user_id, name=name, email=email, releases=releases , revenue=revenue, ugcs=ugcs, nav_id="ugc-claims")
+
+@cms.route('/profile-linking', methods=['GET','POST'])
+@login_required
+def profilelinking():
+    user = current_user
+    user_id = user.id
+    name = session.get('name')
+    email = session.get('email')
+    revenue = int(session.get('revenue'))
+    profilelinkings = Profilelinking.query.filter_by(user_id=user_id).all()
+    releases= Album.query.filter_by(user_id=user_id).all()
+    if request.method == 'POST':
+        release_title = request.form['releaseTitle']
+        audio_title = request.form['audioTitle']
+        artist = request.form['artist']
+        fb = request.form['fb']
+        ig = request.form['ig']
+        profilelinking = Profilelinking(user_id=user_id, release_title=release_title, audio_title=audio_title, artist=artist, fb=fb, ig=ig)
+        db.session.add(profilelinking)
+        db.session.commit()
+        flash('Profile Linking Requested Successfully!', 'success')
+        return redirect(url_for('cms.profilelinking'))
+    return render_template('cms/profilelinking.html', user=user, user_id=user_id, name=name, email=email, releases=releases , revenue=revenue, profilelinkings=profilelinkings, nav_id="profile-linking")
+
+
+@cms.route('/distributelyrics', methods=['GET','POST'])
+@login_required
+def distributelyrics():
+    user = current_user
+    user_id = user.id
+    name = session.get('name')
+    email = session.get('email')
+    revenue = int(session.get('revenue'))
+    distributelyricss = Distributelyrics.query.filter_by(user_id=user_id).all()
+    releases= Album.query.filter_by(user_id=user_id).all()
+    if request.method == 'POST':
+        release_title = request.form['releaseTitle']
+        audio_title = request.form['audioTitle']
+        language = request.form['language']
+        lyrics = request.form['lyrics']
+        distributelyrics = Distributelyrics(user_id=user_id, release_title=release_title, audio_title=audio_title, language=language, lyrics=lyrics)
+        db.session.add(distributelyrics)
+        db.session.commit()
+        flash('UGC Claimed successfully!', 'success')
+        return redirect(url_for('cms.distributelyrics'))
+    return render_template('cms/distributelyrics.html', user=user, user_id=user_id, name=name, email=email, releases=releases , revenue=revenue, distributelyricss=distributelyricss, nav_id="distribute-lyrics")
