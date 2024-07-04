@@ -14,7 +14,7 @@ def allowed_file(filename):
 
 @cms.route('/uploads/<filename>')
 def uploaded_file(filename):
-    return send_from_directory('J:/bmn_universal_music/app/uploads',filename)
+    return send_from_directory('/uploads',filename)
 
 
 @cms.route("/")
