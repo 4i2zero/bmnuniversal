@@ -293,6 +293,7 @@
         </div>
 
     </div>
+
     <!--   Core JS Files   -->
     <script src="/static/cms/assets/js/core/jquery-3.7.1.min.js"></script>
     <script src="/static/cms/assets/js/core/popper.min.js"></script>
@@ -378,6 +379,10 @@
     {% endif %}
     {% endwith %}
     </script>
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+<script type="text/javascript">window.onload = function() { Calendly.initBadgeWidget({ url: 'https://calendly.com/bmnuniversalstudios/recording-session-for-existing-customers?background_color=000000&text_color=ffffff&primary_color=b700ff', text: 'BOOK APPOINTMENT', color: '#9a00ff', textColor: '#ffffff', branding: undefined }); }</script>
+
     {% block js %}
         
     {% endblock js %}

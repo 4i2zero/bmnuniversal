@@ -44,7 +44,7 @@ def upload_file():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             session['filename'] = filename
-            file.save(os.path.join('J:/bmn_universal_music/app/uploads', filename))
+            file.save(os.path.join('/home/jerry/webdev/bmnuniversal/app/uploads', filename))
             return jsonify({'message': 'File uploaded successfully!', 'filename': filename}), 200
         return jsonify({'message': 'Invalid file type!'}), 400
 
@@ -393,7 +393,7 @@ def tickets():
             file = request.files['attachment']
             if file and allowed_file(file.filename):
                 filename = secure_filename(file.filename)
-                file.save(os.path.join('J:/bmn_universal_music/app/uploads', filename))
+                file.save(os.path.join('/home/jerry/webdev/bmnuniversal/app/uploads', filename))
                 message = request.form['message']
                 attachment = filename
                 ticket_id = ticket.id
