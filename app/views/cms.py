@@ -5,7 +5,16 @@ from . import cms
 from app.extensions import db
 from werkzeug.utils import secure_filename
 from app.models import Artist, User, Album, Song, Store, Report, Ticket, Message, Ugc, Profilelinking, Distributelyrics
+import os
 
+# Get the directory of the current file (api.py) within the views folder
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Navigate up to the parent directory (where views folder is located)
+parent_dir = os.path.dirname(current_dir)
+
+# Construct the path to the uploads folder, which is at the same level as views
+path = os.path.join(parent_dir, 'uploads')
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'mp3', 'wav', 'flac'}
 
@@ -14,7 +23,7 @@ def allowed_file(filename):
 
 @cms.route('/uploads/<filename>')
 def uploaded_file(filename):
-    return send_from_directory('/home/jerry/webdev/bmnuniversal/app/uploads',filename)
+    return send_from_directory(path,filename)
 
 
 @cms.route("/")
@@ -44,7 +53,7 @@ def upload_file():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             session['filename'] = filename
-            file.save(os.path.join('/home/jerry/webdev/bmnuniversal/app/uploads', filename))
+            file.save(os.path.join(path, filename))
             return jsonify({'message': 'File uploaded successfully!', 'filename': filename}), 200
         return jsonify({'message': 'Invalid file type!'}), 400
 
@@ -393,7 +402,7 @@ def tickets():
             file = request.files['attachment']
             if file and allowed_file(file.filename):
                 filename = secure_filename(file.filename)
-                file.save(os.path.join('/home/jerry/webdev/bmnuniversal/app/uploads', filename))
+                file.save(os.path.join(path, filename))
                 message = request.form['message']
                 attachment = filename
                 ticket_id = ticket.id

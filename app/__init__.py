@@ -30,10 +30,13 @@ def create_app(config_class=Config):
     from .views.main import main as main_blueprint
     from .views.auth import auth as auth_blueprint
     from .views.cms import cms as cms_blueprint
+    from .views.api import api as api_blueprint
 
     app.register_blueprint(main_blueprint)
     app.register_blueprint(auth_blueprint)
     app.register_blueprint(cms_blueprint, url_prefix='/cms')
+    app.register_blueprint(api_blueprint, url_prefix='/api')
+
 
     admin = Admin(app, name='MyAdmin', template_mode='bootstrap4') # Use 'bootstrap4' if you prefer
     admin.add_view(MyAdminModelView(User, db.session)) # Add your model to the admin interface

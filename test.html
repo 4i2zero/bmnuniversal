@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Files</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <!-- Audio Upload Form -->
+        <div class="card">
+            <div class="card-header">Upload Audio</div>
+            <div class="card-body">
+                <form action ="http://127.0.0.1:8000/api/upload-audio" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="audioFile">Select Audio</label>
+                        <input type="file" class="form-control-file" id="audioFile" name="file" accept="audio/*" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Upload Audio</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Photo Upload Form -->
+        <div class="card mt-4">
+            <div class="card-header">Upload Photo</div>
+            <div class="card-body">
+                <form action="http://127.0.0.1:8000/api/upload-photo" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="photoFile">Select Photo</label>
+                        <input type="file" class="form-control-file" id="photoFile" name="file" accept="image/*" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Upload Photo</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
