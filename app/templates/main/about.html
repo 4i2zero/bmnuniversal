@@ -44,34 +44,6 @@
         </div>
     </div>
 </div>
-<div class="container mt-5">
-    <!-- Audio Upload Form -->
-    <div class="card">
-        <div class="card-header">Upload Audio</div>
-        <div class="card-body">
-            <form action ="http://127.0.0.1:8000/api/upload-audio" method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label for="audioFile">Select Audio</label>
-                    <input type="file" class="form-control-file" id="audioFile" name="file" accept="audio/*" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Upload Audio</button>
-            </form>
-        </div>
-    </div>
 
-    <!-- Photo Upload Form -->
-    <div class="card mt-4">
-        <div class="card-header">Upload Photo</div>
-        <div class="card-body">
-            <form action="http://127.0.0.1:8000/api/upload-photo" method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label for="photoFile">Select Photo</label>
-                    <input type="file" class="form-control-file" id="photoFile" name="file" accept="image/*" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Upload Photo</button>
-            </form>
-        </div>
-    </div>
-</div>
 
 {% endblock content %}
